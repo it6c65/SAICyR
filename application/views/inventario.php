@@ -14,7 +14,15 @@
             <li><a href=""> <i class="uk-icon-small uk-icon-home"></i> Inicio</a></li>
             <li><a href=""> <i class="uk-icon-diamond"></i> Bienes</a></li>
             <li><a href=""> <i class="uk-icon-users"></i> Administrar usuarios</a></li>
+            <li><a href=""> <i class="uk-icon-small uk-icon-flask"></i> Laboratorio de CyR</a></li>
+            <li><a href=""> <i class="uk-icon-small uk-icon-puzzle-piece"> </i> Taller de CyR</a></li>
         </ul>
+<div class="uk-navbar-flip uk-navbar-content">
+        <ul class="uk-navbar-nav">
+            <li><a href="#"> <i class="uk-icon-medium uk-icon-user"></i> &nbsp; Usuario</a></li>
+        </ul>
+        <button class="uk-button uk-button-danger"> <i class="uk-icon-power-off"></i> Cerrar sesión</button>
+</div>
     </nav>
 <div class="uk-container uk-container-center">
 <p>Hola</p>
