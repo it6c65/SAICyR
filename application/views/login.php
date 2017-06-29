@@ -8,14 +8,12 @@
             <div class="uk-form-row uk-text-center">
                 <div class="uk-form-icon">
                 <div class="uk-icon-user"></div>
-               <!-- <input type="text" placeholder="Usuario" class="uk-form-large uk-form-width-large"> -->
                 <input type="text" placeholder="Usuario">
                 </div>
             </div>  
             <div class="uk-form-row uk-text-center">
                 <div class="uk-form-icon">
                     <i class="uk-icon-key"></i>
-                    <!-- <input type="password" placeholder="Clave" class="uk-form-large uk-form-width-large"> -->
                     <input type="password" placeholder="Clave">
                 </div>
             </div>

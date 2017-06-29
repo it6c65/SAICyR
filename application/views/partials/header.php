@@ -9,4 +9,3 @@
     <?= link_tag('public/img/icon.png', 'shortcut icon', 'image/png'); ?>
 </head>
 <body>
-

@@ -1,3 +1,5 @@
+<div class="uk-container uk-container-center">
+    <div class="uk-position-cover uk-flex uk-flex-column">
 <nav class="uk-navbar uk-navbar-attached">
     <ul class="uk-navbar-nav">
     <?= img("public/img/logon.svg", FALSE, array("class" => "uk-navbar-brand")); ?>
@@ -11,7 +13,7 @@
             <div class="uk-dropdown uk-dropdown-navbar uk-dropdown-bottom">
                 <ul class="uk-nav uk-nav-navbar">
                     <li><a href=""> <i class="uk-icon-fax"></i> Oficina de Dirección</a></li>
-                    <li><a href=""> <i class="uk-icon-cubes"></i> Salón Polifacético</a></li>
+                    <li><a href=""> <i class="uk-icon-cubes"></i> Salón Principal</a></li>
                     <li><a href=""> <i class="uk-icon-film"></i> Sala de Arte</a></li>
                     <li><a href=""> <i class="uk-icon-child"></i> Taller de Escultura</a></li>
                     <li><a href=""> <i class="uk-icon-building"></i> Depósito</a></li>
@@ -28,4 +30,3 @@
         <button class="uk-button uk-button-danger"> <i class="uk-icon-power-off"></i> Cerrar sesión</button>
     </div>
 </nav>
-
