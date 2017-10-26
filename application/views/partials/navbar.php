@@ -99,19 +99,43 @@
         <?php if($title == "Inventario"): ?>
             <li class="uk-active"> <a href="<?= base_url("inventario") ?>"> <i class="uk-icon-small uk-icon-home"></i> Inicio</a></li>
         <?php else: ?>
-            <li class=""> <a href="<?= base_url("inventario") ?>"> <i class="uk-icon-small uk-icon-home"></i> Inicio</a></li>
+            <li> <a href="<?= base_url("inventario") ?>"> <i class="uk-icon-small uk-icon-home"></i> Inicio</a></li>
         <?php endif; ?>
-            <li><a href=""> <i class="uk-icon-diamond"></i> Obras </a></li>
-            <li><a href=""> <i class="uk-icon-small uk-icon-flask"></i> Laboratorio de CyR</a></li>
-            <li><a href=""> <i class="uk-icon-small uk-icon-puzzle-piece"> </i> Taller de CyR</a></li>
+        <?php if($title == "Obras"): ?>
+            <li class="uk-active"><a href="<?= base_url("obras") ?>"> <i class="uk-icon-diamond"></i> Obras </a></li>
+        <?php else: ?>
+            <li><a href="<?= base_url("obras") ?>"> <i class="uk-icon-diamond"></i> Obras </a></li>
+        <?php endif; ?>
+        <?php if($title == "Laboratorio"): ?>
+            <li class="uk-active"><a href="<?= base_url("laboratorio") ?>"> <i class="uk-icon-small uk-icon-flask"></i> Laboratorio de CyR</a></li>
+        <?php else: ?>
+            <li><a href="<?= base_url("laboratorio") ?>"> <i class="uk-icon-small uk-icon-flask"></i> Laboratorio de CyR</a></li>
+        <?php endif; ?>
+        <?php if($title == "Taller"): ?>
+            <li class="uk-active"><a href="<?= base_url("taller") ?>"> <i class="uk-icon-small uk-icon-puzzle-piece"> </i> Taller de CyR</a></li>
+        <?php else: ?>
+            <li><a href="<?= base_url("taller") ?>"> <i class="uk-icon-small uk-icon-puzzle-piece"> </i> Taller de CyR</a></li>
+        <?php endif; ?>
+        <?php if($title == "Dirección"): ?>
+            <li class="uk-active uk-parent">
+        <?php elseif($title == "Salón Principal"): ?>
+            <li class="uk-active uk-parent">
+        <?php elseif($title == "Sala de Arte"): ?>
+            <li class="uk-active uk-parent">
+        <?php elseif($title == "Taller de Escultura"): ?>
+            <li class="uk-active uk-parent">
+        <?php elseif($title == "Depósito"): ?>
+            <li class="uk-active uk-parent">
+        <?php else: ?>
             <li class="uk-parent">
+        <?php endif; ?>
                 <a href="#"> <i class="uk-icon-university"></i> Institución</a>
                     <ul class="uk-nav-sub">
-                        <li><a href=""> <i class="uk-icon-fax"></i> Oficina de Dirección</a></li>
-                        <li><a href=""> <i class="uk-icon-cubes"></i> Salón Principal</a></li>
-                        <li><a href=""> <i class="uk-icon-film"></i> Sala de Arte</a></li>
-                        <li><a href=""> <i class="uk-icon-child"></i> Taller de Escultura</a></li>
-                        <li><a href=""> <i class="uk-icon-building"></i> Depósito</a></li>
+                        <li><a href="<?= base_url("direccion") ?>"> <i class="uk-icon-fax"></i> Oficina de Dirección</a></li>
+                        <li><a href="<?= base_url("salon") ?>"> <i class="uk-icon-cubes"></i> Salón Principal</a></li>
+                        <li><a href="<?= base_url("arte") ?>"> <i class="uk-icon-film"></i> Sala de Arte</a></li>
+                        <li><a href="<?= base_url("escultura") ?>"> <i class="uk-icon-child"></i> Taller de Escultura</a></li>
+                        <li><a href="<?= base_url("deposito") ?>"> <i class="uk-icon-building"></i> Depósito</a></li>
                     </ul>
             </li>
             <li><a href=""> <i class="uk-icon-users"></i> Administrar usuarios</a></li>
