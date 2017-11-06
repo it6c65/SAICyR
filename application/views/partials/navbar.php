@@ -89,7 +89,6 @@
             </ul>
             <button class="uk-button uk-button-danger uk-hidden-small"> <i class="uk-icon-power-off"></i> Cerrar sesión</button>
         </div>
-    </div>
 </nav>
 
 <!-- Barra de Navegacion Responsive -->
@@ -143,7 +142,3 @@
     </div>
 </div>
 
-
-
-    </div>
-</div>
