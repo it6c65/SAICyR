@@ -1,6 +1,7 @@
 <?php
 class Taller extends CI_Controller {
     public function index(){
+        $this->load->database();
         $titulo = array( "title" => "Taller" );
         $this->load->helper('html');
         $this->load->helper('url');
