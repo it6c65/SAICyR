@@ -1,0 +1,29 @@
+$("#edit").click(function(){
+    $("#delete").hide();
+    $("#edit").hide();
+    $("#condicion_actual").hide();
+    $("#categoria_actual").hide();
+    $("#back").removeClass("uk-hidden");
+    $("#save").removeClass("uk-hidden");
+    $("#condicion").removeClass("uk-hidden");
+    $("#categoria").removeClass("uk-hidden");
+    $("#nombre_actual").hide();
+    $("#nombre").removeClass("uk-hidden");
+    $("#codigo_actual").hide();
+    $("#codigo").removeClass("uk-hidden");
+});
+
+$("#back").click(function(){
+    $("#back").addClass("uk-hidden");
+    $("#save").addClass("uk-hidden");
+    $("#condicion").addClass("uk-hidden");
+    $("#categoria").addClass("uk-hidden");
+    $("#condicion_actual").show();
+    $("#categoria_actual").show();
+    $("#nombre_actual").show();
+    $("#nombre").addClass("uk-hidden");
+    $("#codigo_actual").show();
+    $("#codigo").addClass("uk-hidden");
+    $("#delete").show();
+    $("#edit").show();
+});

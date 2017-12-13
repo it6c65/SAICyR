@@ -19,8 +19,8 @@
                 <div class="uk-width-4-10">
                     Ordenar por:
                     <button class="uk-button"> <i class="uk-icon-arrows-v"></i> Codigo </button>
-                    <button class="uk-button"> <i class="uk-icon-arrows-v"></i> condicion </button>
-                    <button class="uk-button"> <i class="uk-icon-arrows-v"></i> categoria </button>
+                    <button class="uk-button"> <i class="uk-icon-arrows-v"></i> Condición </button>
+                    <button class="uk-button"> <i class="uk-icon-arrows-v"></i> Categoría </button>
                 </div>            
             </div>      
 <br>
@@ -40,19 +40,19 @@
                     </button>
                 </div>
         </div>
-        <form class="uk-form uk-form-stacked uk-width-1-2" action="">
+        <?= form_open("taller/agregar", array("class" => "uk-form uk-form-stacked uk-width-1-2")); ?>
         <div class="uk-grid">
             <div class="uk-form-row uk-width-1-1">
                 <label for="add_name" class="uk-form-label"> Nombre del Elemento </label>
-                <input type="text" placeholder="Nombre" id="add_name" class="uk-width-1-1">
+                <input type="text" placeholder="Nombre" id="add_name" class="uk-width-1-1" name="nombre">
             </div> 
            <div class="uk-form-row uk-width-1-1">
                <label class="uk-form-label" for="add_code">Codigo del Elemento</label>
-               <input id="add_code" type="text" placeholder="Codigo" class="uk-width-1-1">
+               <input id="add_code" type="text" placeholder="Codigo" class="uk-width-1-1" name="codigo">
            </div>
             <div class="uk-form-row uk-width-1-2">
                 <label class="uk-form-label" for="add_condition">Condición</label>
-                <select id="add_condition" name="">
+                <select id="add_condition" name="condicion">
                     <option value="1">Regular</option>
                     <option value="2">Malo</option>
                     <option value="3">Bueno</option>
@@ -60,14 +60,14 @@
             </div>
             <div class="uk-form-row uk-width-1-2">
                 <label class="uk-form-label" for="add_category"> Categoría</label>
-                <select id="add_category" name="">
+                <select id="add_category" name="categoria">
                     <option value="Suministros de Oficina">Oficina</option>
                     <option value="Muebles">Mueble</option>
                     <option value="Quimicos">Químicos</option>
                 </select>
             </div>
             <div class="uk-form-row uk-width-1-1">
-                <button class="uk-button uk-button-success"><i class="uk-icon-send"></i> Enviar </button>
+                <button class="uk-button uk-button-success" type="submit"><i class="uk-icon-send"></i> Enviar </button>
             </div>
         </div>
         </form>
@@ -84,7 +84,7 @@
                         <th class="uk-text-center">Acciones</th>
                     </tr>
                 </thead>
-                <tbody class="list">
+                <tbody class="list" data-bind="foreach: tool">
                     <tr>
                         <td class="uk-text-center">
                             <div class="uk-form-file">
@@ -97,31 +97,25 @@
                             <i class="uk-icon-ban"></i> Cancelar 
                             </button>
                         </td>
-                        <td class="uk-text-center uk-text-bold uk-text-large"> <p id="nombre_actual">Silla</p>
-                            <input type="hidden" id="nombre">
+                        <td class="uk-text-center uk-text-bold uk-text-large"> <p data-bind="text: name, visible: !$parent.edit()"></p>
+                            <input type="text" id="nombre" data-bind="value: name, visible: $parent.edit">
                         </td>
-                        <td class="uk-text-center"> <p id="codigo_actual">12.85.43.43.55.43</p> 
-                            <input id="codigo" type="hidden">
+                        <td class="uk-text-center"> <p id="codigo_actual" data-bind="text: code, visible: !$parent.edit()"></p> 
+                            <input id="codigo" type="text" data-bind="value: code, visible: $parent.edit">
                         </td>
-                        <td class="uk-text-center"> <div class="uk-badge" id="condicion_actual">Regular</div>
-                        <select id="condicion" name="Condicion" class="uk-hidden">
-                            <option value="1"> Regular </option>
-                            <option value="2"> Malo </option>
-                            <option value="3"> Bueno </option>
+                        <td class="uk-text-center"> <div class="uk-badge" id="condicion_actual" data-bind="text: current_condition, visible: !$parent.edit()"></div>
+                        <select id="condicion" name="Condicion" data-bind="options: $parent.conditions, value: current_condition, visible: $parent.edit">
                         </select>
                         </td>
-                        <td class="uk-text-center"> <div class="uk-text-primary" id="categoria_actual">Oficina</div>
-                        <select id="categoria" name="Categoria" class="uk-hidden">
-                            <option value="Suministros de Oficina"> Oficina </option>
-                            <option value="Muebles"> Mueble </option>
-                            <option value="Quimicos"> Químicos </option>
+                        <td class="uk-text-center"> <div class="uk-text-primary" id="categoria_actual" data-bind="text: current_category, visible: !$parent.edit()"></div>
+                        <select id="categoria" name="Categoria" data-bind="options: $parent.categories, value: current_category, visible: $parent.edit">
                         </select>
                         </td>
                         <td class="uk-text-center"> 
-                            <button class="uk-button uk-button-primary uk-hidden" id="save" style="background-color:rgb(40,70,110);"><i class="uk-icon-save"></i> Guardar </button>
-                            <button class="uk-button uk-button-primary" id="edit"><i class="uk-icon-edit"></i> Editar </button>
-                            <button class="uk-button uk-button-danger" id="delete"><i class="uk-icon-trash"></i> Borrar </button>
-                            <button class="uk-button uk-button-danger uk-hidden" id="back"><i class="uk-icon-ban"></i> Cancelar </button>
+                            <button class="uk-button uk-button-primary" id="save" style="background-color:rgb(40,70,110);" data-bind="visible: $parent.edit"><i class="uk-icon-save"></i> Guardar </button>
+                            <button class="uk-button uk-button-primary" id="edit" data-bind="click: $parent.edit_view(true), visible: !$parent.edit()"><i class="uk-icon-edit"></i> Editar </button>
+                            <button class="uk-button uk-button-danger" id="delete" data-bind="visible: !$parent.edit()"><i class="uk-icon-trash"></i> Borrar </button>
+                            <button class="uk-button uk-button-danger" id="back" data-bind="click: $parent.edit_view(false), visible: $parent.edit"><i class="uk-icon-ban"></i> Cancelar </button>
                         </td>
                     </tr>
                 </tbody>

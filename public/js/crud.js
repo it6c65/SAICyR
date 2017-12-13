@@ -1,35 +1,15 @@
-$("#edit").click(function(){
-    $("#delete").hide();
-    $("#edit").hide();
-    $("#condicion_actual").hide();
-    $("#categoria_actual").hide();
-    $("#back").removeClass("uk-hidden");
-    $("#save").removeClass("uk-hidden");
-    $("#condicion").removeClass("uk-hidden");
-    $("#categoria").removeClass("uk-hidden");
-    $("#nombre_actual").hide();
-    $("#nombre").attr({
-        "type" : "text",
-        "value" : $("#nombre_actual").text()
-    });
-    $("#codigo_actual").hide();
-    $("#codigo").attr({
-        "type" : "text",
-        "value" : $("#codigo_actual").text()
-    });
-});
+function crudViewModel(){
+    var self = this;
+    self.tool = ko.observableArray([
+        { name: 'Silla', code: "12.85.43.43.55.44", current_condition: "Regular", current_category: 'Oficina' },
+        { name: 'Martillo', code: "12.85.43.43.65.44", current_condition: 'Malo', current_category: 'Mueble' }
+    ]);
+    self.conditions = ko.observableArray(['Regular','Malo','Bueno']);
+    self.categories = ko.observableArray(['Oficina','Mueble','Quimico']);
+    self.edit = ko.observable(false);
+    self.edit_view = function(value){
+        self.edit(value);
+    }
+}
 
-$("#back").click(function(){
-    $("#back").addClass("uk-hidden");
-    $("#save").addClass("uk-hidden");
-    $("#condicion").addClass("uk-hidden");
-    $("#categoria").addClass("uk-hidden");
-    $("#condicion_actual").show();
-    $("#categoria_actual").show();
-    $("#nombre_actual").show();
-    $("#nombre").attr("type", "hidden");
-    $("#codigo_actual").show();
-    $("#codigo").attr("type", "hidden");
-    $("#delete").show();
-    $("#edit").show();
-});
+ko.applyBindings(new crudViewModel());

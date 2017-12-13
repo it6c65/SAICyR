@@ -7,6 +7,7 @@
 <script src="<?= base_url("public/js/uikit.js"); ?>"></script>
 <script src="<?= base_url("public/js/knockout.js"); ?>"></script>
 <script src="<?= base_url("public/js/img_preview.js"); ?>"></script>
+<script src="<?= base_url("public/js/editar-boton.js"); ?>"></script>
 <script src="<?= base_url("public/js/crud.js"); ?>"></script>
 </body>
 </html>
