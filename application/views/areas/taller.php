@@ -84,7 +84,7 @@
                         <th class="uk-text-center">Acciones</th>
                     </tr>
                 </thead>
-                <tbody class="list" data-bind="foreach: tool">
+                <tbody class="list" data-bind="foreach: tools">
                     <tr>
                         <td class="uk-text-center">
                             <div class="uk-form-file">
@@ -97,25 +97,25 @@
                             <i class="uk-icon-ban"></i> Cancelar 
                             </button>
                         </td>
-                        <td class="uk-text-center uk-text-bold uk-text-large"> <p data-bind="text: name, visible: !$parent.edit()"></p>
-                            <input type="text" id="nombre" data-bind="value: name, visible: $parent.edit">
+                        <td class="uk-text-center uk-text-bold uk-text-large"> <p data-bind="text: name, visible: !editing()"></p>
+                            <input type="text" id="nombre" data-bind="value: name, visible: editing">
                         </td>
-                        <td class="uk-text-center"> <p id="codigo_actual" data-bind="text: code, visible: !$parent.edit()"></p> 
-                            <input id="codigo" type="text" data-bind="value: code, visible: $parent.edit">
+                        <td class="uk-text-center"> <p id="codigo_actual" data-bind="text: code, visible: !editing()"></p> 
+                            <input id="codigo" type="text" data-bind="value: code, visible: editing">
                         </td>
-                        <td class="uk-text-center"> <div class="uk-badge" id="condicion_actual" data-bind="text: current_condition, visible: !$parent.edit()"></div>
-                        <select id="condicion" name="Condicion" data-bind="options: $parent.conditions, value: current_condition, visible: $parent.edit">
+                        <td class="uk-text-center"> <div id="condicion_actual" data-bind="text: current_condition, visible: !editing(), css: { 'uk-badge': current_condition, 'uk-badge-danger': current_condition() == 'Malo', 'uk-badge-success': current_condition() == 'Bueno' }"></div>
+                        <select id="condicion" name="Condicion" data-bind="options: $parent.conditions, value: current_condition, visible: editing">
                         </select>
                         </td>
-                        <td class="uk-text-center"> <div class="uk-text-primary" id="categoria_actual" data-bind="text: current_category, visible: !$parent.edit()"></div>
-                        <select id="categoria" name="Categoria" data-bind="options: $parent.categories, value: current_category, visible: $parent.edit">
+                        <td class="uk-text-center"> <div id="categoria_actual" data-bind="text: current_category, visible: !editing(), css: { 'uk-text-primary': current_category() == 'Oficina', 'uk-text-warning': current_category() == 'Mueble', 'uk-text-success': current_category() == 'Quimico' }"></div>
+                        <select id="categoria" name="Categoria" data-bind="options: $parent.categories, value: current_category, visible: editing">
                         </select>
                         </td>
                         <td class="uk-text-center"> 
-                            <button class="uk-button uk-button-primary" id="save" style="background-color:rgb(40,70,110);" data-bind="visible: $parent.edit"><i class="uk-icon-save"></i> Guardar </button>
-                            <button class="uk-button uk-button-primary" id="edit" data-bind="click: $parent.edit_view(true), visible: !$parent.edit()"><i class="uk-icon-edit"></i> Editar </button>
-                            <button class="uk-button uk-button-danger" id="delete" data-bind="visible: !$parent.edit()"><i class="uk-icon-trash"></i> Borrar </button>
-                            <button class="uk-button uk-button-danger" id="back" data-bind="click: $parent.edit_view(false), visible: $parent.edit"><i class="uk-icon-ban"></i> Cancelar </button>
+                            <button class="uk-button uk-button-primary" id="save" style="background-color:rgb(40,70,110);" data-bind="visible: editing"><i class="uk-icon-save"></i> Guardar </button>
+                            <button class="uk-button uk-button-primary" id="edit" data-bind="click: function() { editing(true) }, visible: !editing()"><i class="uk-icon-edit"></i> Editar </button>
+                            <button class="uk-button uk-button-danger" id="delete" data-bind="visible: !editing(), click: $parent.delete "><i class="uk-icon-trash"></i> Borrar </button>
+                            <button class="uk-button uk-button-danger" id="back" data-bind="click: function() { editing(false) }, visible: editing"><i class="uk-icon-ban"></i> Cancelar </button>
                         </td>
                     </tr>
                 </tbody>

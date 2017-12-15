@@ -1,14 +1,22 @@
+function tool( name, code, ccondition, ccategory ){
+    this.name = ko.observable(name);
+    this.code = ko.observable(code);
+    this.current_condition = ko.observable(ccondition);
+    this.current_category = ko.observable(ccategory);
+    this.editing = ko.observable(false);
+};
+
 function crudViewModel(){
     var self = this;
-    self.tool = ko.observableArray([
-        { name: 'Silla', code: "12.85.43.43.55.44", current_condition: "Regular", current_category: 'Oficina' },
-        { name: 'Martillo', code: "12.85.43.43.65.44", current_condition: 'Malo', current_category: 'Mueble' }
+    self.tools = ko.observableArray([
+        new tool('Silla', "12.85.43.43.55.44", "Regular", 'Oficina'),
+        new tool( 'Martillo', "12.85.43.43.65.44", 'Malo', 'Mueble'),
+        new tool( 'Agua', "42.85.43.43.65.44", 'Bueno', 'Quimico')
     ]);
     self.conditions = ko.observableArray(['Regular','Malo','Bueno']);
     self.categories = ko.observableArray(['Oficina','Mueble','Quimico']);
-    self.edit = ko.observable(false);
-    self.edit_view = function(value){
-        self.edit(value);
+    self.delete = function( tool ){
+        self.tools.remove(tool);
     }
 }
 
