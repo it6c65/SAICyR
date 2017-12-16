@@ -16,8 +16,17 @@ function crudViewModel(){
     self.conditions = ko.observableArray(['Regular','Malo','Bueno']);
     self.categories = ko.observableArray(['Oficina','Mueble','Quimico']);
     self.delete = function( tool ){
-        self.tools.remove(tool);
+        UIkit.modal.confirm("¿Estás seguro de que deseas borrarlo?", function(){
+            self.tools.remove(tool);
+        });
     }
 }
 
 ko.applyBindings(new crudViewModel());
+
+function getBaseUrl(){
+    var local = window.location;
+    var base_url = local.protocol + "//" + local.host + "/" + local.pathname.split('/')[1];
+    return base_url;
+}
+
