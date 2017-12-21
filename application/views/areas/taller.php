@@ -87,16 +87,16 @@
                 <tbody class="list" data-bind="foreach: tools">
                     <tr>
                         <td class="uk-text-center">
-                            <div class="uk-form-file">
-                                <i class="uk-icon-hover uk-icon-large uk-icon-camera" id="icon_img"></i><input type="file" id="articulo">
-                                <br>
-                                <img id="img_articulo" src="#" class="uk-hidden uk-margin-top">
-                            </div>
-                            <br>
-                            <button class="uk-button uk-button-danger uk-hidden uk-margin-top" id="exit_img"> 
-                            <i class="uk-icon-ban"></i> Cancelar 
-                            </button>
-                        </td>
+                            <figure class="uk-overlay uk-overlay-hover" data-bind="visible: img">
+                                <img alt="item_img" data-bind="attr: { src: img, width: '150', height: '200' }">
+                                <figcaption class="uk-overlay-panel uk-overlay-background uk-overlay-slide-top uk-text-center">
+                                    <a href="#img_gallery" class="uk-button uk-button-primary" data-uk-modal><i class="uk-icon-clone"></i> Cambiar</a>
+                                </figcaption>
+                            </figure>
+                            <a href="#img_gallery" data-uk-modal data-bind="visible: !img()">
+                                <i class="uk-icon-hover uk-icon-large uk-icon-camera"></i>
+                            </a>
+                       </td>
                         <td class="uk-text-center uk-text-bold uk-text-large"> <p data-bind="text: name, visible: !editing()"></p>
                             <input type="text" id="nombre" data-bind="value: name, visible: editing">
                         </td>
@@ -123,3 +123,45 @@
         </div>
     </div>
 </div>
+ <!--  Modal  de Galería -->
+<div id="img_gallery" class="uk-modal">
+    <div class="uk-modal-dialog uk-modal-dialog-large">
+        <a class="uk-modal-close uk-close"></a>
+        <div class="uk-modal-header uk-text-center"> 
+            <h1> Galería de Imágenes</h1>
+        </div>
+        <div class="uk-overflow-container"> 
+            <div class="uk-grid uk-align-center" >
+                <ul class="uk-thumbnav uk-width-1-12" data-bind="foreach: gallery">
+                    <li data-bind="css: { 'uk-active': isSelected}">
+                        <a href="#" data-bind="event: { mouseover: $parent.imgSelected, mouseout: $parent.Unselected }"><img data-bind="attr: { src: url, width: '200', height: '200' }, visible: !isSelected()">
+                        <figure class="uk-overlay" data-bind="visible: isSelected">
+                            <img data-bind="attr: { src: url, width: '200', height: '200' }">
+                            <figcaption class="uk-overlay-panel uk-overlay-background uk-overlay-bottom uk-text-center">
+                                <div class="uk-button-group">
+                                    <button class="uk-button uk-button-success uk-button-small" data-bind="click: $parent.setImage  "> <i class="uk-icon-photo"></i> Seleccionar </button>
+                                    <button class="uk-button uk-button-danger uk-button-small" data-bind="click: $parent.deleteImg"> <i class="uk-icon-trash"></i> Borrar </button>
+                                </div>
+                            </figcaption>
+                        </figure>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+<br>
+<br>
+        <div class="uk-grid uk-grid-collapse">
+            <div class="uk-placeholder uk-text-center uk-width-1-1" id="upload-drop">
+                <h1><i class="uk-icon-cloud-upload"></i></h1>
+                <p> Puedes arrastrar la imagen a subir o <a class="uk-form-file">Seleccionarla manualmente <input id="upload-select" type="file">
+ </a> </p>
+            </div>
+            <div id="progressbar" class="uk-progress uk-progress-warning uk-progress-mini uk-width-1-1 uk-hidden">
+                <div class="uk-progress-bar" style="width:0%"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -9,5 +9,7 @@
 <script src="<?= base_url("public/js/img_preview.js"); ?>"></script>
 <script src="<?= base_url("public/js/editar-boton.js"); ?>"></script>
 <script src="<?= base_url("public/js/crud.js"); ?>"></script>
+<script src="<?= base_url("public/js/components/upload.min.js"); ?>"></script>
+<script src="<?= base_url("public/js/components/notify.min.js"); ?>"></script>
 </body>
 </html>

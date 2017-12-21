@@ -5,28 +5,27 @@ function previewIMG(input) {
     var reader = new FileReader();
 
     reader.onload = function(e) {
-      $('#img_articulo').attr('src', e.target.result);
-      $('#img_articulo').attr('width', "150");
-      $('#img_articulo').attr('height', "200");
-      $('#img_articulo').removeClass("uk-hidden");
-      $('#exit_img').removeClass("uk-hidden");
-      $('#icon_img').addClass("uk-hidden");
+      $('#img_preview').attr('src', e.target.result);
+      $('#img_preview').attr('width', "150");
+      $('#img_previewm').attr('height', "200");
+      $('#sent_gallery').removeClass("uk-hidden");
+      $('#img_preview').removeClass("uk-hidden");
+      $('#select_button').addClass("uk-hidden");
     }
 
     reader.readAsDataURL(input.files[0]);
   }
 }
 
+$("#select_img").change(function() {
+  previewIMG(this);
+});
 
 $("#exit_img").click(function(){
-  $('#img_articulo').attr('src', "#");
-  $('#img_articulo').addClass("uk-hidden");
-  $('#exit_img').addClass("uk-hidden");
-  $('#icon_img').removeClass("uk-hidden");
-})
-
-$("#articulo").change(function() {
-  previewIMG(this);
+    $('#img_preview').attr('src',"#");
+    $('#sent_gallery').addClass("uk-hidden");
+    $('#img_preview').addClass("uk-hidden");
+    $('#select_button').removeClass("uk-hidden");
 });
 
 // preview de las imagenes en agregar

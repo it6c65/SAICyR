@@ -7,6 +7,9 @@
     <?= link_tag('public/css/uikit.almost-flat.css'); ?>
     <?= link_tag('public/css/base.css'); ?>
     <?= link_tag('public/css/components/form-file.almost-flat.min.css'); ?>
+    <?= link_tag('public/css/components/placeholder.almost-flat.min.css'); ?>
+    <?= link_tag('public/css/components/progress.almost-flat.min.css'); ?>
+    <?= link_tag('public/css/components/notify.almost-flat.min.css'); ?>
     <?= link_tag('public/img/icon.png', 'shortcut icon', 'image/png'); ?>
 </head>
 <body>
