@@ -1,6 +1,7 @@
 .DS_Store
 
 application/cache/*
+public/img/subidas
 !application/cache/index.html
 !application/cache/.htaccess
 

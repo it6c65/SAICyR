@@ -5,6 +5,7 @@ function getBaseUrl(){
     return base_url;
 }
 
+
 // Objeto de las herramientas (de todos los utensilios)
 function tool( name, code, ccondition, ccategory, name_img ){
     this.name = ko.observable(name);
@@ -62,10 +63,27 @@ function crudViewModel(){
     self.deleteImg = function(image){
         self.gallery.remove(image);
     };
-    self.setImage = function(data){
-         self.tools.push({ img: data.url() });
-    }
+    self.changeImg = ko.observable();
+
+    self.addName = ko.observable();
+    self.addCode = ko.observable();
+    self.addCondition = ko.observable();
+    self.addCategory = ko.observable();
+    self.addImage = ko.observable();
+    self.addOption = ko.observable(false);
+
+    self.SubmitAdd = function(){
+        return true;
+    };
+
+    $('#img_gallery').on({
+        'hide.uk.modal': function(){
+            self.addOption(false);
+            self.changeImg(false);
+        }
+    });
 }
+
 
 //Aplica la Vista-Modelo
 ko.applyBindings(new crudViewModel());
@@ -113,5 +131,12 @@ $(function(){
 
 var select = UIkit.uploadSelect($("#upload-select"), settings),
     drop   = UIkit.uploadDrop($("#upload-drop"), settings);
+});
+
+// Busqueda de elementos, orden y paginacion de listjs
+var elementos = new List('inventario',{
+    valueNames: ['nombre','codigo','condicion','categoria'],
+    page: 13,
+    pagination: true
 });
 
