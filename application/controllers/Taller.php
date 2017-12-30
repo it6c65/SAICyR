@@ -9,12 +9,16 @@ class Taller extends CI_Controller {
         $this->load->view('partials/header', $titulo );
         $this->load->view('partials/navbar', $titulo);
         $this->load->view('areas/taller');
-        $this->load->view('partials/footer');
+        $this->load->view('partials/footers/main');
     }
     public function agregar(){
         $this->load->model('agregar');
         $this->load->helper('url');
         $this->agregar->utilidades_taller();
         redirect("/taller/index");
+    }
+    public function utilidades(){
+        header('Content-Type: application/json');
+        $this->load->model('inventario');
     }
 }

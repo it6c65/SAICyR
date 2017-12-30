@@ -6,5 +6,6 @@ class Login extends CI_Controller{
         $this->load->helper('url');
         $this->load->view('partials/header', $titulo);
         $this->load->view('login');
+        $this->load->view('partials/footers/login');
     }
 }

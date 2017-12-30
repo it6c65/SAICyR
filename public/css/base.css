@@ -1,10 +1,10 @@
-.uk-flex{
-    background-image: url("../img/background.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
-}
+/* .uk-flex{ */
+/*     background-image: url("../img/background.jpg"); */
+/*     background-repeat: no-repeat; */
+/*     background-attachment: fixed; */
+/*     background-position: center; */
+/*     background-size: cover; */
+/* } */
 
 form{
     background-color: rgba(245,245,245,0.8) !important;
@@ -51,4 +51,12 @@ div#main {
     background-color: rgba(100,34,0,0.7) !important;
     color:white;
     text-shadow: 0 1px 0 #000;
+}
+
+html{
+    background-image: url("../img/background.jpg");
+    background-repeat: repeat-y;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
 }

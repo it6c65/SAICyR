@@ -10,6 +10,7 @@
     <?= link_tag('public/css/components/placeholder.almost-flat.min.css'); ?>
     <?= link_tag('public/css/components/progress.almost-flat.min.css'); ?>
     <?= link_tag('public/css/components/notify.almost-flat.min.css'); ?>
+    <?= link_tag('public/css/components/tooltip.almost-flat.min.css'); ?>
     <?= link_tag('public/img/icon.png', 'shortcut icon', 'image/png'); ?>
 </head>
 <body>

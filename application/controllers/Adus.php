@@ -7,6 +7,6 @@ class Adus extends CI_Controller {
         $this->load->view('partials/header', $titulo );
         $this->load->view('partials/navbar', $titulo );
         $this->load->view('adm_user');
-        $this->load->view('partials/footer');
+        $this->load->view('partials/footers/user');
     }
 }

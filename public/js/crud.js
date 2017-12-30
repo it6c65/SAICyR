@@ -5,6 +5,12 @@ function getBaseUrl(){
     return base_url;
 }
 
+// funcion para obtener el url del Controlador en Codeigniter
+function getController(){
+    var local = window.location;
+    var url_controller = local.pathname.split('/')[1] + "/";
+    return url_controller;
+}
 
 // Objeto de las herramientas (de todos los utensilios)
 function tool( name, code, ccondition, ccategory, name_img ){
@@ -20,7 +26,7 @@ function tool( name, code, ccondition, ccategory, name_img ){
 function gallery_item(data){
     var self = this;
     self.isSelected = ko.observable(false);
-    self.url = ko.observable(data);
+    self.url = ko.observable(data.url);
 };
 
 //funcion del CRUD (y toda la estructura logica del CRUD)
@@ -46,11 +52,8 @@ function crudViewModel(){
     }
 
     // lista de imagenes de la galeria
-    self.gallery = ko.observableArray([
-        new gallery_item(getBaseUrl()+route_img+"test-1.jpg"),
-        new gallery_item(getBaseUrl()+route_img+"test-2.jpg"),
-        new gallery_item(getBaseUrl()+route_img+"test-3.jpg")
-    ]);
+    self.gallery = ko.observableArray([]);
+
     //Hover de las imagenes de la galeria
     self.imgSelected = function(data){
         data.isSelected(true);
@@ -65,21 +68,49 @@ function crudViewModel(){
     };
     self.changeImg = ko.observable();
 
-    self.addName = ko.observable();
-    self.addCode = ko.observable();
+    self.addName = ko.observable("");
+    self.addCode = ko.observable("");
     self.addCondition = ko.observable();
     self.addCategory = ko.observable();
     self.addImage = ko.observable();
     self.addOption = ko.observable(false);
 
+    // agrega la) herramientas a la base de datos con AJAX
     self.SubmitAdd = function(){
-        return true;
+        if(self.addName() === ""){
+            $("#add_name").addClass("uk-form-danger");
+            $("#add_name").attr("title","¡No olvides ponerle nombre!");
+            return false;
+        }
+        self.tools.push(new tool(self.addName(),self.addCode(),self.addCondition(),self.addCategory(),self.addImage()));
+        addTool = {
+            nombre: self.addName(),
+            codigo: self.addCode(),
+            condicion: self.addCondition(),
+            categoria: self.addCategory(),
+            img: self.addImage()
+        };
+        $.post(getBaseUrl()+getController()+"agregar", addTool);
+        self.addName("");
+        self.addCode("");
+        self.addCondition("Regular");
+        self.addCategory("Oficina");
+        self.addImage(null);
     };
 
     $('#img_gallery').on({
         'hide.uk.modal': function(){
             self.addOption(false);
             self.changeImg(false);
+        },
+        'show.uk.modal': function(){
+            $.getJSON(getBaseUrl()+"gallery", function(data){
+                var mappedImages = $.map(data, function(item){ 
+                    return new gallery_item(item);
+                });
+                self.gallery(mappedImages);
+                self.gallery.remove( mappedImages[0] );
+            });
         }
     });
 }
@@ -136,7 +167,7 @@ var select = UIkit.uploadSelect($("#upload-select"), settings),
 // Busqueda de elementos, orden y paginacion de listjs
 var elementos = new List('inventario',{
     valueNames: ['nombre','codigo','condicion','categoria'],
-    page: 13,
+    page: 9,
     pagination: true
 });
 

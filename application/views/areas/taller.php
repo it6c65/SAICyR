@@ -27,7 +27,7 @@
 <div class="uk-hidden uk-panel uk-panel-box uk-panel-box-success uk-text-center" id="add">
     <h3 class="uk-panel-title"><i class="uk-icon-plus"></i> Agregar Elemento <i class="uk-icon-plus"></i></h3>
     <div class="uk-container">
-        <?= form_open("taller/agregar", array("class" => "uk-form")); ?>
+        <form class="uk-form" data-bind="submit: SubmitAdd">
         <table class="uk-table">
             <thead>
                 <tr>
@@ -48,17 +48,17 @@
                         <a class="uk-button" href="#img_gallery" data-uk-modal data-bind="visible: addImage, click: addOption"> Escoger Otra</a>
                     </td>
                     <td class="uk-text-center">
-                        <input type="text" placeholder="Nombre" id="add_name" name="nombre">
+                        <input type="text" placeholder="Nombre" id="add_name" name="nombre" data-bind="value: addName" data-uk-tooltip>
                     </td>
                     <td class="uk-text-center">
-                       <input id="add_code" type="text" placeholder="Codigo" class="uk-width-1-1" name="codigo">
+                       <input id="add_code" type="text" placeholder="Codigo" name="codigo" data-bind="value: addCode">
                     </td>
                     <td class="uk-text-center">
-                        <select id="add_condition" name="condicion" data-bind="options: conditions">
+                        <select id="add_condition" name="condicion" data-bind="options: conditions, value: addCondition">
                         </select>
                     </td>
                     <td class="uk-text-center">
-                        <select id="add_category" name="categoria" data-bind="options: categories">
+                        <select id="add_category" name="categoria" data-bind="options: categories, value: addCategory">
                         </select>
                     </td>
                     <td class="uk-text-center">
@@ -84,17 +84,17 @@
                 <tbody class="list" data-bind="foreach: tools">
                     <tr>
                         <td class="uk-text-center">
-                            <figure class="uk-overlay uk-overlay-hover" data-bind="visible: img">
-                                <img alt="item_img" data-bind="attr: { src: img, width: '150', height: '200' }">
-                                <figcaption class="uk-overlay-panel uk-overlay-background uk-overlay-slide-top uk-text-center">
-                                    <a href="#img_gallery" class="uk-button uk-button-primary" data-uk-modal data-bind="click: function() { $parent.changeImg($index()) } "><i class="uk-icon-clone"></i> Cambiar</a>
+                            <figure class="uk-overlay">
+                                <img alt="item_img" data-bind="attr: { src: img, width: '100', height: '100' },visible: img">
+                                <figcaption class="uk-overlay-panel uk-overlay-background uk-text-center" data-bind="visible: editing">
+                                    <a href="#img_gallery" class="uk-button uk-button-primary uk-button-mini" data-uk-modal data-bind="click: function() { $parent.changeImg($index()) } "><i class="uk-icon-clone"></i> Cambiar</a>
                                 </figcaption>
                             </figure>
                             <a href="#img_gallery" data-uk-modal data-bind="visible: !img(), click: function() { $parent.changeImg($index()) } ">
                                 <i class="uk-icon-hover uk-icon-large uk-icon-camera"></i>
                             </a>
                        </td>
-                        <td class="uk-text-center uk-text-bold uk-text-large "> <p class="nombre"data-bind="text: name, visible: !editing()"></p>
+                        <td class="uk-text-center uk-text-bold uk-text-large"> <p class="nombre" data-bind="text: name, visible: !editing()"></p>
                             <input type="text" id="nombre" data-bind="value: name, visible: editing">
                         </td>
                         <td class="uk-text-center"> <p class="codigo" data-bind="text: code, visible: !editing()"></p> 
@@ -130,8 +130,8 @@
             <h1> Galería de Imágenes</h1>
         </div>
         <div class="uk-overflow-container"> 
-            <div class="uk-grid uk-align-center" >
-                <ul class="uk-thumbnav uk-width-1-12" data-bind="foreach: gallery">
+            <div class="uk-align-center" >
+                <ul class="uk-thumbnav uk-grid-width-1-6 uk-flex uk-flex-middle" data-bind="foreach: gallery">
                     <li data-bind="css: { 'uk-active': isSelected}">
                         <a href="#" data-bind="event: { mouseover: $parent.imgSelected, mouseout: $parent.Unselected }"><img data-bind="attr: { src: url, width: '200', height: '200' }, visible: !isSelected()">
                         <figure class="uk-overlay" data-bind="visible: isSelected">
