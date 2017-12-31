@@ -1,3 +1,6 @@
+$("#loading_main").hide();
+$("#loading_gallery").hide();
+
 // funcion para obtener el url de Codeigniter
 function getBaseUrl(){
     var local = window.location;
@@ -13,13 +16,18 @@ function getController(){
 }
 
 // Objeto de las herramientas (de todos los utensilios)
-function tool( name, code, ccondition, ccategory, name_img ){
-    this.name = ko.observable(name);
-    this.code = ko.observable(code);
-    this.current_condition = ko.observable(ccondition);
-    this.current_category = ko.observable(ccategory);
+function tool(data){
+    this.id = data.id;
+    this.name = ko.observable(data.nombre);
+    this.code = ko.observable(data.codigo);
+    this.current_condition = ko.observable(data.condicion);
+    this.current_category = ko.observable(data.categoria);
     this.editing = ko.observable(false);
-    this.img = ko.observable(name_img);
+    if( data.url == "null" ){
+        this.img = ko.observable(null);
+    }else{
+        this.img = ko.observable(data.url);
+    }
 };
 
 //objetos de la galeria
@@ -27,19 +35,27 @@ function gallery_item(data){
     var self = this;
     self.isSelected = ko.observable(false);
     self.url = ko.observable(data.url);
+    self.id = data.id
 };
 
 //funcion del CRUD (y toda la estructura logica del CRUD)
 function crudViewModel(){
+    $.getJSON( getBaseUrl()+getController()+"utilidades", function(data){
+        $("#loading_main").ajaxStart(function(){
+            $(this).show();
+        });
+        var mappedTools = $.map(data, function(item){
+            return new tool(item);
+        });
+        self.tools(mappedTools);
+        $("#loading_main").ajaxStop(function(){
+            $(this).hide();
+        });
+    });
     //prevenir confusion de KO y Jquery
     var self = this;
-    var route_img = "public/img/subidas/";
     //Lista de todos las herramientas
-    self.tools = ko.observableArray([
-        new tool('Silla', "12.85.43.43.55.44", "Regular", 'Oficina'),
-        new tool( 'Martillo', "12.85.43.43.65.44", 'Malo', 'Mueble'),
-        new tool( 'Agua', "42.85.43.43.65.44", 'Bueno', 'Quimico')
-    ]);
+    self.tools = ko.observableArray([]);
     //Todas las condiciones posibles (usadas para designar el CSS)
     self.conditions = ko.observableArray(['Regular','Malo','Bueno']);
     //Todas las catergorias (usadas para designar el CSS)
@@ -105,11 +121,17 @@ function crudViewModel(){
         },
         'show.uk.modal': function(){
             $.getJSON(getBaseUrl()+"gallery", function(data){
+                $("#loading_gallery").ajaxStart(function(){
+                    $(this).show();
+                });
                 var mappedImages = $.map(data, function(item){ 
                     return new gallery_item(item);
                 });
                 self.gallery(mappedImages);
                 self.gallery.remove( mappedImages[0] );
+                $("#loading_main").ajaxStop(function(){
+                    $(this).hide();
+                });
             });
         }
     });
@@ -163,11 +185,3 @@ $(function(){
 var select = UIkit.uploadSelect($("#upload-select"), settings),
     drop   = UIkit.uploadDrop($("#upload-drop"), settings);
 });
-
-// Busqueda de elementos, orden y paginacion de listjs
-var elementos = new List('inventario',{
-    valueNames: ['nombre','codigo','condicion','categoria'],
-    page: 9,
-    pagination: true
-});
-

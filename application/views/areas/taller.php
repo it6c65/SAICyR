@@ -70,6 +70,7 @@
         </form>
     </div>
 </div>
+<div id="loading_main" class="uk-text-center"><i class="uk-icon-spinner uk-icon-large uk-icon-spin"></i></div>
           <table class="uk-table uk-table-hover">
                 <thead>
                     <tr>
@@ -128,6 +129,7 @@
         <a class="uk-modal-close uk-close"></a>
         <div class="uk-modal-header uk-text-center"> 
             <h1> Galería de Imágenes</h1>
+            <div id="loading_gallery" class="uk-text-center"><i class="uk-icon-spinner uk-icon-large uk-icon-spin"></i></div>
         </div>
         <div class="uk-overflow-container"> 
             <div class="uk-align-center" >

@@ -7,7 +7,6 @@ class Gallery extends CI_Controller {
     }
     public function index(){
         header('Content-Type: application/json');
-        $this->db->select('url');
         $images = $this->db->get('galeria');
         echo json_encode( $images->result() );
     }
