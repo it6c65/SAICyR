@@ -5,7 +5,7 @@
             <h1 class="uk-text-bold"> Taller de Restauración</h1>
             <div class="uk-form-icon">
                 <i class="uk-icon-search"></i>
-                <input class="search uk-form-blank" type="text" placeholder="Buscar...">
+                <input class="search uk-form-blank" type="text" placeholder="Buscar..." data-bind="value: Query, valueUpdate: 'keyup'">
             </div>
         </div>
         <div class="uk-overflow-container">
@@ -18,9 +18,9 @@
                 </div>
                 <div class="uk-width-4-10">
                     Ordenar por:
-                    <button class="uk-button sort" data-sort="codigo"> <i class="uk-icon-arrows-v"></i> Codigo </button>
-                    <button class="uk-button sort" data-sort="condicion"> <i class="uk-icon-arrows-v"></i> Condición </button>
-                    <button class="uk-button sort" data-sort="categoria"> <i class="uk-icon-arrows-v"></i> Categoría </button>
+                    <button class="uk-button" data-bind="click: orderbyCode"> <i class="uk-icon-arrows-v"></i> Codigo </button>
+                    <button class="uk-button" data-bind="click: orderbyCondition"> <i class="uk-icon-arrows-v"></i> Condición </button>
+                    <button class="uk-button" data-bind="click: orderbyCategory"> <i class="uk-icon-arrows-v"></i> Categoría </button>
                 </div>            
             </div>      
 <br>
@@ -70,9 +70,14 @@
         </form>
     </div>
 </div>
+<div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center" data-bind="visible: tools().length == 0">
+    <div class="uk-panel-badge uk-badge"> Nota</div>
+    <h2 class="uk-panel-title">¡No hay nada! </h2>
+    <p> Agregar elementos con el boton "agregar", qué está arriba de este mensaje </p>
+</div>
 <div id="loading_main" class="uk-text-center"><i class="uk-icon-spinner uk-icon-large uk-icon-spin"></i></div>
           <table class="uk-table uk-table-hover">
-                <thead>
+                <thead data-bind="visible: tools().length > 0">
                     <tr>
                         <th class="uk-text-center">Imagen</th>
                         <th class="uk-text-center">Nombre</th>
@@ -82,43 +87,49 @@
                         <th class="uk-text-center">Acciones</th>
                     </tr>
                 </thead>
-                <tbody class="list" data-bind="foreach: tools">
+                <tbody data-bind="foreach: paginated">
                     <tr>
                         <td class="uk-text-center">
                             <figure class="uk-overlay">
                                 <img alt="item_img" data-bind="attr: { src: img, width: '100', height: '100' },visible: img">
                                 <figcaption class="uk-overlay-panel uk-overlay-background uk-text-center" data-bind="visible: editing">
                                     <a href="#img_gallery" class="uk-button uk-button-primary uk-button-mini" data-uk-modal data-bind="click: function() { $parent.changeImg($index()) } "><i class="uk-icon-clone"></i> Cambiar</a>
+                                    <button class="uk-button uk-button-danger uk-button-mini" data-bind="click: function() { img(null) }"><i class="uk-icon-remove"></i> Quitar</button>
                                 </figcaption>
                             </figure>
-                            <a href="#img_gallery" data-uk-modal data-bind="visible: !img(), click: function() { $parent.changeImg($index()) } ">
+                            <a href="#img_gallery" data-uk-modal data-bind="visible: !img(), click: function() { $parent.changeImg($index()); editing(true) }">
                                 <i class="uk-icon-hover uk-icon-large uk-icon-camera"></i>
                             </a>
                        </td>
-                        <td class="uk-text-center uk-text-bold uk-text-large"> <p class="nombre" data-bind="text: name, visible: !editing()"></p>
+                        <td class="uk-text-center uk-text-bold uk-text-large"> <p data-bind="text: name, visible: !editing()"></p>
                             <input type="text" id="nombre" data-bind="value: name, visible: editing">
                         </td>
-                        <td class="uk-text-center"> <p class="codigo" data-bind="text: code, visible: !editing()"></p> 
+                        <td class="uk-text-center"> <p data-bind="text: code, visible: !editing()"></p> 
+                            <p data-bind="ifnot: code, visible: !editing()"> No tiene código</p>
                             <input id="codigo" type="text" data-bind="value: code, visible: editing">
                         </td>
-                        <td class="uk-text-center"> <div  class="condicion" data-bind="text: current_condition, visible: !editing(), css: { 'uk-badge': current_condition, 'uk-badge-danger': current_condition() == 'Malo', 'uk-badge-success': current_condition() == 'Bueno' }"></div>
+                        <td class="uk-text-center"> <div data-bind="text: current_condition, visible: !editing(), css: { 'uk-badge': current_condition, 'uk-badge-danger': current_condition() == 'Malo', 'uk-badge-success': current_condition() == 'Bueno' }"></div>
                         <select id="condicion" name="Condicion" data-bind="options: $parent.conditions, value: current_condition, visible: editing">
                         </select>
                         </td>
-                        <td class="uk-text-center"> <div class="categoria" data-bind="text: current_category, visible: !editing(), css: { 'uk-text-primary': current_category() == 'Oficina', 'uk-text-warning': current_category() == 'Mueble', 'uk-text-success': current_category() == 'Quimico' }"></div>
+                        <td class="uk-text-center"> <div data-bind="text: current_category, visible: !editing(), css: { 'uk-text-primary': current_category() == 'Oficina', 'uk-text-warning': current_category() == 'Mueble', 'uk-text-success': current_category() == 'Quimico' }"></div>
                         <select id="categoria" name="Categoria" data-bind="options: $parent.categories, value: current_category, visible: editing">
                         </select>
                         </td>
                         <td class="uk-text-center"> 
-                            <button class="uk-button uk-button-primary" style="background-color:rgb(40,70,110);" data-bind="visible: editing"><i class="uk-icon-save"></i> Guardar </button>
+                            <button class="uk-button uk-button-primary" style="background-color:rgb(40,70,110);" data-bind="visible: editing, click: function() { $parent.save($index()) }"><i class="uk-icon-save"></i> Guardar </button>
                             <button class="uk-button uk-button-primary" data-bind="click: function() { editing(true) }, visible: !editing()"><i class="uk-icon-edit"></i> Editar </button>
-                            <button class="uk-button uk-button-danger"  data-bind="visible: !editing(), click: $parent.delete "><i class="uk-icon-trash"></i> Borrar </button>
+                            <button class="uk-button uk-button-danger"  data-bind="visible: !editing(), click: function() { $parent.delete($index()) }"><i class="uk-icon-trash"></i> Borrar </button>
                             <button class="uk-button uk-button-danger"  data-bind="click: function() { editing(false) }, visible: editing"><i class="uk-icon-ban"></i> Cancelar </button>
                         </td>
                     </tr>
                 </tbody>
             </table>
-        <ul class="uk-pagination pagination" ></ul>
+        <ul class="uk-pagination" data-bind="visible: tools().length > 0">
+            <li class="uk-pagination-previous"><a href="" data-bind="visible: hasPrevious, click: previous"><i class="uk-icon-angle-double-left"></i> Anterior</a></li>
+            <li class="uk-active"><span data-bind="text: pageNumber() + 1"></span></li>
+            <li class="uk-pagination-next"> <a href="" data-bind="visible: hasNext, click: next">Siguiente <i class="uk-icon-angle-double-right"></i></a></li>
+        </ul>
 <br>
         </div>
     </div>
@@ -140,9 +151,9 @@
                             <img data-bind="attr: { src: url, width: '200', height: '200' }">
                             <figcaption class="uk-overlay-panel uk-overlay-background uk-overlay-bottom uk-text-center">
                                 <div class="uk-button-group">
-                                    <button class="uk-button uk-button-success uk-button-small" data-bind="click: function() { $parent.addImage($parent.gallery()[$index()].url()) }, visible: $parent.addOption "> <i class="uk-icon-photo"></i> Añadir </button>
+                                    <button class="uk-button uk-button-success uk-button-small" data-bind="click: function() { $parent.addImage($parent.gallery()[$index()].id) }, visible: $parent.addOption "> <i class="uk-icon-photo"></i> Añadir </button>
                                     <button class="uk-button uk-button-primary uk-button-small" data-bind="click: function() { $parent.tools()[$parent.changeImg()].img($parent.gallery()[$index()].url()) }, visible: !$parent.addOption()"> <i class="uk-icon-clone"></i> Cambiar </button>
-                                    <button class="uk-button uk-button-danger uk-button-small" data-bind="click: $parent.deleteImg"> <i class="uk-icon-trash"></i> Borrar </button>
+                                    <button class="uk-button uk-button-danger uk-button-small" data-bind="click: function() { $parent.deleteImg($index()) }"> <i class="uk-icon-trash"></i> Borrar </button>
                                 </div>
                             </figcaption>
                         </figure>

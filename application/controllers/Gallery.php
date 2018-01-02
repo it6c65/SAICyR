@@ -29,4 +29,8 @@ class Gallery extends CI_Controller {
             $this->agregar->galeria($data['file_name']);
         }
     }
+    public function delete(){
+        $this->load->model("borrar");
+        $this->borrar->galeria();
+    }
 };

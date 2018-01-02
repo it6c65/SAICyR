@@ -13,12 +13,20 @@ class Taller extends CI_Controller {
     }
     public function agregar(){
         $this->load->model('agregar');
-        $this->agregar->utilidades_taller();
+        $this->agregar->taller();
     }
     public function utilidades(){
         header('Content-Type: application/json');
         $this->load->model('inventario');
         $mostrar = $this->inventario->taller();
         echo json_encode( $mostrar->result());
+    }
+    public function editar(){
+        $this->load->model('actualizar');
+        $this->actualizar->taller();
+    }
+    public function borrar(){
+        $this->load->model('borrar');
+        $this->borrar->taller();
     }
 }

@@ -40,20 +40,24 @@ function gallery_item(data){
 
 //funcion del CRUD (y toda la estructura logica del CRUD)
 function crudViewModel(){
-    $.getJSON( getBaseUrl()+getController()+"utilidades", function(data){
-        $("#loading_main").ajaxStart(function(){
-            $(this).show();
-        });
-        var mappedTools = $.map(data, function(item){
-            return new tool(item);
-        });
-        self.tools(mappedTools);
-        $("#loading_main").ajaxStop(function(){
-            $(this).hide();
-        });
-    });
     //prevenir confusion de KO y Jquery
     var self = this;
+
+    self.getTools = function(){
+        $.getJSON( getBaseUrl()+getController()+"utilidades", function(data){
+            $("#loading_main").ajaxStart(function(){
+                $(this).show();
+            });
+            var mappedTools = $.map(data, function(item){
+                return new tool(item);
+            });
+            self.tools(mappedTools);
+            $("#loading_main").ajaxStop(function(){
+                $(this).hide();
+            });
+        });
+    };
+    self.getTools();
     //Lista de todos las herramientas
     self.tools = ko.observableArray([]);
     //Todas las condiciones posibles (usadas para designar el CSS)
@@ -61,11 +65,30 @@ function crudViewModel(){
     //Todas las catergorias (usadas para designar el CSS)
     self.categories = ko.observableArray(['Oficina','Mueble','Quimico']);
     //Borra un utensilio
-    self.delete = function( tool ){
+    self.delete = function(index){
         UIkit.modal.confirm("¿Estás seguro de que deseas borrarlo?", function(){
-            self.tools.remove(tool);
+            self.tools.destroy( self.tools()[index] );
+            $.post(getBaseUrl()+getController()+"borrar", {data: ko.toJSON({ tool: self.tools()[index] }) 
+            });
+            UIkit.notify(" <i class='uk-icon-check'></i> Borrado con éxito", "success");
         });
     }
+
+    self.getImages = function(){
+        $.getJSON(getBaseUrl()+"gallery", function(data){
+            $("#loading_gallery").ajaxStart(function(){
+                $(this).show();
+            });
+            var mappedImages = $.map(data, function(item){ 
+                return new gallery_item(item);
+            });
+            self.gallery(mappedImages);
+            self.gallery.remove( mappedImages[0] );
+            $("#loading_main").ajaxStop(function(){
+                $(this).hide();
+            });
+        });
+    };
 
     // lista de imagenes de la galeria
     self.gallery = ko.observableArray([]);
@@ -79,8 +102,14 @@ function crudViewModel(){
         data.isSelected(false);
     };
     //Elimina una imagen de la galeria
-    self.deleteImg = function(image){
-        self.gallery.remove(image);
+    self.deleteImg = function(index){
+        UIkit.modal.confirm("¿Estas seguro de que deseas borrar la imagen?", function(){
+            self.gallery.destroy( self.gallery()[index]);
+            $.post(getBaseUrl()+"gallery/delete", {data: ko.toJSON({ img: self.gallery()[index] }) 
+            });
+            UIkit.notify(" <i class='uk-icon-check'></i> Imagen Borrada con éxito", "success");
+            UIkit.notify(" <i class='uk-icon-info-circle'></i>  Recarga la pagina para que la imagenes borradas desaparezcan", "primary");
+        });
     };
     self.changeImg = ko.observable();
 
@@ -91,14 +120,13 @@ function crudViewModel(){
     self.addImage = ko.observable();
     self.addOption = ko.observable(false);
 
-    // agrega la) herramientas a la base de datos con AJAX
+    // agrega las herramientas a la base de datos con AJAX
     self.SubmitAdd = function(){
         if(self.addName() === ""){
             $("#add_name").addClass("uk-form-danger");
             $("#add_name").attr("title","¡No olvides ponerle nombre!");
             return false;
         }
-        self.tools.push(new tool(self.addName(),self.addCode(),self.addCondition(),self.addCategory(),self.addImage()));
         addTool = {
             nombre: self.addName(),
             codigo: self.addCode(),
@@ -107,6 +135,11 @@ function crudViewModel(){
             img: self.addImage()
         };
         $.post(getBaseUrl()+getController()+"agregar", addTool);
+        UIkit.notify(" <i class='uk-icon-check'></i> Añadido con éxito", "success");
+        self.getTools();
+        self.resetSubmit();
+    };
+    self.resetSubmit = function(){
         self.addName("");
         self.addCode("");
         self.addCondition("Regular");
@@ -120,21 +153,67 @@ function crudViewModel(){
             self.changeImg(false);
         },
         'show.uk.modal': function(){
-            $.getJSON(getBaseUrl()+"gallery", function(data){
-                $("#loading_gallery").ajaxStart(function(){
-                    $(this).show();
-                });
-                var mappedImages = $.map(data, function(item){ 
-                    return new gallery_item(item);
-                });
-                self.gallery(mappedImages);
-                self.gallery.remove( mappedImages[0] );
-                $("#loading_main").ajaxStop(function(){
-                    $(this).hide();
-                });
-            });
+            self.getImages();
         }
     });
+
+    // paginacion
+    self.pageNumber = ko.observable(0);
+    self.perPage = 13;
+    self.totalPages = ko.computed(function(){
+        var total = Math.ceil(self.tools().length / self.perPage);
+        return total - 1;
+    });
+    self.orderbyCode = function(){
+        return self.tools.sort( function(l,r){
+            return l.code() == r.code() ? 0 : ( l.code() < r.code() ? -1 : 1 )
+        });
+    }
+    self.orderbyCondition = function(){
+        return self.tools.sort( function(l,r){
+            return l.current_condition() == r.current_condition() ? 0 : ( l.current_condition() < r.current_condition() ? -1 : 1 )
+        });
+    }
+    self.orderbyCategory = function(){
+        return self.tools.sort( function(l,r){
+            return l.current_category() == r.current_category() ? 0 : ( l.current_category() < r.current_category() ? -1 : 1 )
+        });
+    }
+    //busqueda
+    self.Query = ko.observable('');
+    self.paginated = ko.computed(function(){
+        // Si no esta buscando muestra solo las herramientas paginadas
+        if( self.Query() != '' ){
+            var q = self.Query();
+            return self.tools().filter(function(i){
+                return i.name().toLowerCase().indexOf(q) >= 0;
+            });
+        }
+        var primero = self.pageNumber() * self.perPage;
+        return self.tools.slice(primero, primero+ self.perPage);
+    });
+
+    this.hasPrevious = ko.computed(function(){
+        return self.pageNumber() !== 0;
+    });
+    this.hasNext = ko.computed(function(){
+        return self.pageNumber() !== self.totalPages();
+    });
+    this.next = function(){
+        if(self.pageNumber() < self.totalPages()){
+            self.pageNumber( self.pageNumber() + 1 );
+        }
+    }
+    this.previous = function(){
+        if(self.pageNumber() != 0){
+            self.pageNumber( self.pageNumber() - 1 );
+        }
+    }
+    self.save = function(index){
+        $.post(getBaseUrl()+getController()+"editar", {data: ko.toJSON({ tool: self.tools()[index] }) 
+        });
+        UIkit.notify("<i class='uk-icon-check'></i> Guardado con éxito", "success");
+    }
 }
 
 
@@ -177,7 +256,7 @@ $(function(){
             progressbar.addClass("uk-hidden");
         }, 250);
 
-        UIkit.notify("La imagen se ha subido con éxito", 'success')
+        UIkit.notify(" <i class='uk-icon-check'></i> La imagen se ha subido con éxito", 'success');
     }
     
 };

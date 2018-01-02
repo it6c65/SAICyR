@@ -20,6 +20,7 @@ class Inventario extends CI_Model{
         $this->db->from("inventario");
         $this->db->join('galeria','galeria.id = galeria_id');
         $this->db->where('area_id', 1);
+        $this->db->order_by('inventario.id','DESC');
         $data = $this->db->get();
         return $data;
     }
