@@ -54,3 +54,11 @@ html{
     background-position: center;
     background-size: cover;
 }
+
+.uk-tab > li > a{
+    color: #BC7540 !important;
+}
+
+.uk-tab > li > a:hover{
+    color: #aadddd !important;
+}

@@ -5,7 +5,7 @@ class Borrar extends CI_Model{
         $this->load->database();
     }
 
-    public function taller(){
+    public function inventario(){
         $json = $this->input->post('data');
         $data = json_decode($json);
         $this->db->where('id', $data->tool->id);

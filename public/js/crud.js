@@ -67,9 +67,9 @@ function crudViewModel(){
     //Borra un utensilio
     self.delete = function(index){
         UIkit.modal.confirm("¿Estás seguro de que deseas borrarlo?", function(){
-            self.tools.destroy( self.tools()[index] );
             $.post(getBaseUrl()+getController()+"borrar", {data: ko.toJSON({ tool: self.tools()[index] }) 
             });
+            self.tools.remove( self.tools()[index] );
             UIkit.notify(" <i class='uk-icon-check'></i> Borrado con éxito", "success");
         });
     }
@@ -104,9 +104,9 @@ function crudViewModel(){
     //Elimina una imagen de la galeria
     self.deleteImg = function(index){
         UIkit.modal.confirm("¿Estas seguro de que deseas borrar la imagen?", function(){
-            self.gallery.destroy( self.gallery()[index]);
             $.post(getBaseUrl()+"gallery/delete", {data: ko.toJSON({ img: self.gallery()[index] }) 
             });
+            self.gallery.remove( self.gallery()[index]);
             UIkit.notify(" <i class='uk-icon-check'></i> Imagen Borrada con éxito", "success");
             UIkit.notify(" <i class='uk-icon-info-circle'></i>  Recarga la pagina para que la imagenes borradas desaparezcan", "primary");
         });
@@ -122,6 +122,8 @@ function crudViewModel(){
 
     // agrega las herramientas a la base de datos con AJAX
     self.SubmitAdd = function(){
+        var check_name = /([a-z]|[A-Z]| ){2,30}/;
+        var check_code = /([0-9]|-){1,999999999999999}/;
         if(self.addName() === ""){
             $("#add_name").addClass("uk-form-danger");
             $("#add_name").attr("title","¡No olvides ponerle nombre!");
@@ -136,8 +138,8 @@ function crudViewModel(){
         };
         $.post(getBaseUrl()+getController()+"agregar", addTool);
         UIkit.notify(" <i class='uk-icon-check'></i> Añadido con éxito", "success");
-        self.getTools();
         self.resetSubmit();
+        self.getTools();
     };
     self.resetSubmit = function(){
         self.addName("");

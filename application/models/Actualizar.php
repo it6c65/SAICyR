@@ -5,7 +5,7 @@ class Actualizar extends CI_Model{
         $this->load->database();
     }
 
-    public function taller(){
+    public function inventario(){
         $json = $this->input->post('data');
         $data = json_decode($json);
         if( $data->tool->img != null ){
@@ -26,6 +26,7 @@ class Actualizar extends CI_Model{
         $this->db->where('id', $data->tool->id);
         $this->db->update("inventario");
     }
+
 }
 
 ?>

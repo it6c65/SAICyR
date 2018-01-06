@@ -1,3 +1,19 @@
+<?php
+$active='class="uk-active"';
+$dropdown = array( 
+    array("url" => base_url("direccion"), "name" => '<i class="uk-icon-fax"></i> Oficina de Dirección'),
+    array("url" => base_url("salon"), "name" => '<i class="uk-icon-cubes"></i> Salón Principal'),
+    array("url" => base_url("arte"), "name" => '<i class="uk-icon-film"></i> Sala de Arte'),
+    array("url" => base_url("escultura"), "name" => '<i class="uk-icon-child"></i> Taller de Escultura'),
+    array("url" => base_url("deposito"), "name" => '<i class="uk-icon-building"></i> Depósito')
+);
+$mains = array(
+    array("url" => base_url("inicio"), "name" => '<i class="uk-icon-small uk-icon-home"></i> Inicio', "lugar" => "Inicio"),
+    array("url" => base_url("obras"), "name" => '<i class="uk-icon-diamond"></i> Obras ', "lugar" => "Obras"),
+    array("url" => base_url("laboratorio"), "name" => '<i class="uk-icon-small uk-icon-flask"></i> Laboratorio de CyR', "lugar" => "Laboratorio"),
+    array("url" => base_url("taller"), "name" => '<i class="uk-icon-small uk-icon-puzzle-piece"> </i> Taller de CyR', "lugar" => "Taller")
+);
+?>
 <div class="uk-container uk-container-center">
     <div class="uk-position-cover uk-flex uk-flex-column">
 <!-- Barra de Navegación -->
@@ -23,37 +39,16 @@
     <!-- Barra de Navegación pantalla Grande -->
     <ul class="uk-navbar-nav uk-hidden-small uk-hidden-medium">
     <?= img("public/img/logon.svg", FALSE, array("class" => "uk-navbar-brand")); ?>
-        <?php if($title == "Inventario"): ?>
-            <li class="uk-active"> <a href="<?= base_url("inventario") ?>"> <i class="uk-icon-small uk-icon-home"></i> Inicio</a></li>
-        <?php else: ?>
-            <li> <a href="<?= base_url("inventario") ?>"> <i class="uk-icon-small uk-icon-home"></i> Inicio</a></li>
-        <?php endif; ?>
-        <?php if($title == "Obras"): ?>
-            <li class="uk-active"><a href="<?= base_url("obras") ?>"> <i class="uk-icon-diamond"></i> Obras </a></li>
-        <?php else: ?>
-            <li><a href="<?= base_url("obras") ?>"> <i class="uk-icon-diamond"></i> Obras </a></li>
-        <?php endif; ?>
-        <?php if($title == "Laboratorio"): ?>
-            <li class="uk-active"><a href="<?= base_url("laboratorio") ?>"> <i class="uk-icon-small uk-icon-flask"></i> Laboratorio de CyR</a></li>
-        <?php else: ?>
-            <li><a href="<?= base_url("laboratorio") ?>"> <i class="uk-icon-small uk-icon-flask"></i> Laboratorio de CyR</a></li>
-        <?php endif; ?>
-        <?php if($title == "Taller"): ?>
-            <li class="uk-active"><a href="<?= base_url("taller") ?>"> <i class="uk-icon-small uk-icon-puzzle-piece"> </i> Taller de CyR</a></li>
-        <?php else: ?>
-            <li><a href="<?= base_url("taller") ?>"> <i class="uk-icon-small uk-icon-puzzle-piece"> </i> Taller de CyR</a></li>
-        <?php endif; ?>
+        <?php foreach($mains as $principales): ?>
+            <?php if($principales["lugar"] == $title ): ?>
+                <li <?= $active ?>> <a href="<?= $principales["url"] ?>"> <?= $principales["name"] ?></a></li>
+            <?php else: ?>
+                <li> <a href="<?= $principales["url"] ?>"> <?= $principales["name"] ?></a></li>
+            <?php endif; ?>
+        <?php endforeach; ?>
 
     <!-- Dropdown para la Barra Nav. Grande -->
-            <?php if($title == "Dirección"): ?>
-            <li class="uk-active uk-parent" data-uk-dropdown>
-            <?php elseif($title == "Salón Principal"): ?>
-            <li class="uk-active uk-parent" data-uk-dropdown>
-            <?php elseif($title == "Sala de Arte"): ?>
-            <li class="uk-active uk-parent" data-uk-dropdown>
-            <?php elseif($title == "Taller de Escultura"): ?>
-            <li class="uk-active uk-parent" data-uk-dropdown>
-            <?php elseif($title == "Depósito"): ?>
+            <?php if($title == "Dirección" || $title == "Salón Principal" || $title == "Sala de Arte" || $title == "Taller de Escultura" || $title == "Depósito"): ?>
             <li class="uk-active uk-parent" data-uk-dropdown>
             <?php else: ?>
             <li class="uk-parent" data-uk-dropdown>
@@ -62,11 +57,9 @@
                 <a href="#"> <i class="uk-icon-university"></i> Institución <i class="uk-icon-caret-down"></i> </a>
             <div class="uk-dropdown uk-dropdown-navbar uk-dropdown-bottom">
                 <ul class="uk-nav uk-nav-navbar">
-                    <li><a href="<?= base_url("direccion") ?>"> <i class="uk-icon-fax"></i> Oficina de Dirección</a></li>
-                    <li><a href="<?= base_url("salon") ?>"> <i class="uk-icon-cubes"></i> Salón Principal</a></li>
-                    <li><a href="<?= base_url("arte") ?>"> <i class="uk-icon-film"></i> Sala de Arte</a></li>
-                    <li><a href="<?= base_url("escultura") ?>"> <i class="uk-icon-child"></i> Taller de Escultura</a></li>
-                    <li><a href="<?= base_url("deposito") ?>"> <i class="uk-icon-building"></i> Depósito</a></li>
+                    <?php foreach($dropdown as $instituto): ?>
+                    <li><a href="<?= $instituto["url"] ?>"> <?= $instituto["name"] ?></a></li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
         </li>
@@ -95,46 +88,23 @@
 <div id="mobile" class="uk-offcanvas">
     <div class="uk-offcanvas-bar">
         <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav>
-        <?php if($title == "Inventario"): ?>
-            <li class="uk-active"> <a href="<?= base_url("inventario") ?>"> <i class="uk-icon-small uk-icon-home"></i> Inicio</a></li>
-        <?php else: ?>
-            <li> <a href="<?= base_url("inventario") ?>"> <i class="uk-icon-small uk-icon-home"></i> Inicio</a></li>
-        <?php endif; ?>
-        <?php if($title == "Obras"): ?>
-            <li class="uk-active"><a href="<?= base_url("obras") ?>"> <i class="uk-icon-diamond"></i> Obras </a></li>
-        <?php else: ?>
-            <li><a href="<?= base_url("obras") ?>"> <i class="uk-icon-diamond"></i> Obras </a></li>
-        <?php endif; ?>
-        <?php if($title == "Laboratorio"): ?>
-            <li class="uk-active"><a href="<?= base_url("laboratorio") ?>"> <i class="uk-icon-small uk-icon-flask"></i> Laboratorio de CyR</a></li>
-        <?php else: ?>
-            <li><a href="<?= base_url("laboratorio") ?>"> <i class="uk-icon-small uk-icon-flask"></i> Laboratorio de CyR</a></li>
-        <?php endif; ?>
-        <?php if($title == "Taller"): ?>
-            <li class="uk-active"><a href="<?= base_url("taller") ?>"> <i class="uk-icon-small uk-icon-puzzle-piece"> </i> Taller de CyR</a></li>
-        <?php else: ?>
-            <li><a href="<?= base_url("taller") ?>"> <i class="uk-icon-small uk-icon-puzzle-piece"> </i> Taller de CyR</a></li>
-        <?php endif; ?>
-        <?php if($title == "Dirección"): ?>
-            <li class="uk-active uk-parent">
-        <?php elseif($title == "Salón Principal"): ?>
-            <li class="uk-active uk-parent">
-        <?php elseif($title == "Sala de Arte"): ?>
-            <li class="uk-active uk-parent">
-        <?php elseif($title == "Taller de Escultura"): ?>
-            <li class="uk-active uk-parent">
-        <?php elseif($title == "Depósito"): ?>
+        <?php foreach($mains as $principales): ?>
+            <?php if($principales["lugar"] == $title ): ?>
+                <li <?= $active ?>> <a href="<?= $principales["url"] ?>"> <?= $principales["name"] ?></a></li>
+            <?php else: ?>
+                <li> <a href="<?= $principales["url"] ?>"> <?= $principales["name"] ?></a></li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <?php if($title == "Dirección" || $title == "Salón Principal" || $title == "Sala de Arte" || $title == "Taller de Escultura" || $title == "Depósito" ): ?>
             <li class="uk-active uk-parent">
         <?php else: ?>
             <li class="uk-parent">
         <?php endif; ?>
                 <a href="#"> <i class="uk-icon-university"></i> Institución</a>
                     <ul class="uk-nav-sub">
-                        <li><a href="<?= base_url("direccion") ?>"> <i class="uk-icon-fax"></i> Oficina de Dirección</a></li>
-                        <li><a href="<?= base_url("salon") ?>"> <i class="uk-icon-cubes"></i> Salón Principal</a></li>
-                        <li><a href="<?= base_url("arte") ?>"> <i class="uk-icon-film"></i> Sala de Arte</a></li>
-                        <li><a href="<?= base_url("escultura") ?>"> <i class="uk-icon-child"></i> Taller de Escultura</a></li>
-                        <li><a href="<?= base_url("deposito") ?>"> <i class="uk-icon-building"></i> Depósito</a></li>
+                        <?php foreach($dropdown as $instituto): ?>
+                        <li><a href="<?= $instituto["url"] ?>"> <?= $instituto["name"] ?></a></li>
+                        <?php endforeach; ?>
                     </ul>
             </li>
             <li><a href=""> <i class="uk-icon-users"></i> Administrar usuarios</a></li>

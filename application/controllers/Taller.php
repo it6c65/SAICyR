@@ -8,7 +8,7 @@ class Taller extends CI_Controller {
         $this->load->helper('form');
         $this->load->view('partials/header', $titulo );
         $this->load->view('partials/navbar', $titulo);
-        $this->load->view('areas/taller');
+        $this->load->view('inventario');
         $this->load->view('partials/footers/main');
     }
     public function agregar(){
@@ -23,10 +23,10 @@ class Taller extends CI_Controller {
     }
     public function editar(){
         $this->load->model('actualizar');
-        $this->actualizar->taller();
+        $this->actualizar->inventario();
     }
     public function borrar(){
         $this->load->model('borrar');
-        $this->borrar->taller();
+        $this->borrar->inventario();
     }
 }

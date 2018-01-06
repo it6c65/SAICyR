@@ -6,7 +6,7 @@ class Obras extends CI_Controller {
         $this->load->helper('url');
         $this->load->view('partials/header', $titulo );
         $this->load->view('partials/navbar', $titulo );
-        $this->load->view('areas/obras');
-        $this->load->view('partials/footer');
+        $this->load->view('obras');
+        $this->load->view('partials/footers/main');
     }
 }
