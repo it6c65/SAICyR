@@ -2,13 +2,13 @@
 class Direccion extends CI_Controller {
     public function index(){
         $this->load->database();
-        $titulo = array( "title" => "Dirección" );
+        $data = array( "title" => "Dirección", "header" => "Oficina de Dirección" );
         $this->load->helper('html');
         $this->load->helper('url');
         $this->load->helper('form');
-        $this->load->view('partials/header', $titulo );
-        $this->load->view('partials/navbar', $titulo);
-        $this->load->view('inventario');
+        $this->load->view('partials/header', $data );
+        $this->load->view('partials/navbar', $data);
+        $this->load->view('inventario', $data);
         $this->load->view('partials/footers/main');
     }
     public function agregar(){

@@ -2,7 +2,7 @@
     <div id="main">
         <br>
         <div class="uk-text-center uk-form">
-            <h1 class="uk-text-bold"> Taller de Restauración</h1>
+        <h1 class="uk-text-bold"> <?= $header ?> </h1>
             <div class="uk-form-icon">
                 <i class="uk-icon-search"></i>
                 <input class="uk-form-blank" type="text" placeholder="Buscar..." data-bind="value: Query, valueUpdate: 'keyup'">
