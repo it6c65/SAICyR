@@ -20,14 +20,18 @@ class Login extends CI_Controller{
         }else{
             $usuario = $this->input->post("usuario");
             $clave = $this->input->post("clave");
-            $this->usuario->init_session($usuario,$clave);
-            $data_user = array(
-                "logged" => true,
-                "name" => $usuario
-            );
-            $this->session->set_userdata($data_user);
-            $this->session->set_flashdata("init", "¡Ha iniciado sesión con éxito!");
-            redirect("/inicio");
+            if($this->usuario->init_session($usuario,$clave)){
+                $data_user = array(
+                    "logged" => true,
+                    "name" => $usuario
+                );
+                $this->session->set_userdata($data_user);
+                $this->session->set_flashdata("init", "¡Ha iniciado sesión con éxito!");
+                redirect("/inicio");
+            }else{
+                $this->session->set_flashdata("error_session","Usuario o clave inválidos");
+                redirect("/");
+            }
         }
     }
 
@@ -40,7 +44,7 @@ class Login extends CI_Controller{
         $this->form_validation->set_rules("realname", "nombre real", "min_length[4]|max_length[30]|trim|alpha_numeric_spaces|htmlspecialchars");
         $this->form_validation->set_rules("password", "clave", "min_length[8]|max_length[23]");
         $this->form_validation->set_rules("tipo", "tipo", "required");
-        $this->form_validation->set_rules("question_secret", "Pregunta Secreta","required|max_length[140]|trim|alpha_numeric_spaces|htmlspecialchars");
+        $this->form_validation->set_rules("question_secret", "Pregunta Secreta","required|max_length[140]|trim|htmlspecialchars");
         $this->form_validation->set_rules("answer_secret", "Respuesta Secreta", "required|max_length[140]|trim");
         if( $this->form_validation->run() == FALSE ){
             $this->load->view('partials/header', $data);
@@ -63,11 +67,75 @@ class Login extends CI_Controller{
     }
 
     public function cambiar_clave(){
+        $this->load->helper(array('html','url','form','cookie'));
+        if($this->input->post("name") != null){
+            $this->db->select("id,username");
+            $this->db->from("usuarios");
+            $this->db->where("username", $this->input->post("name"));
+            $this->db->limit(1);
+            $query = $this->db->get();
+            if( $query->num_rows() == 1 ){
+                $user = $query->row();
+                set_cookie("user_recovery", $user->id, 540);
+                echo "existe";
+                return false;
+            }else{
+                echo "no existe";
+                return false;
+            }
+        }
+        $this->load->library('form_validation');
+        $data = array( "title" => "Cambio de clave");
+        $this->form_validation->set_rules("password", "clave", "required|min_length[8]|max_length[23]");
+        $this->form_validation->set_rules("repeat_password", "clave", "required|matches[password]");
+        if( $this->form_validation->run() == false ){
+            $this->load->view('partials/header', $data);
+            $this->load->view('change_password');
+            $this->load->view('partials/footers/register');
+        }else{
+            $this->load->model("usuario");
+            $nueva_clave = $this->input->post("password");
+            $id = get_cookie("user_recovery");
+            $this->usuario->change_password($id, $nueva_clave);
+            $this->session->set_flashdata("change_pass", "<i class='uk-icon-check'></i> Se ha cambiado la clave con éxito");
+            redirect("/");
+        }
+    }
+    public function pregunta_secreta(){
+        $this->load->helper(array('html','url','form','cookie'));
+        $this->load->library('form_validation');
+        $data = array( "title" => "Pregunta Secreta");
+        $this->form_validation->set_rules("answer_secret", "Respuesta Secreta", "required");
+        if ($this->form_validation->run() == false){
+            $this->db->select("id,question_secret");
+            $this->db->from("usuarios");
+            $this->db->where("id", get_cookie("user_recovery") );
+            $this->db->limit(1);
+            $query = $this->db->get()->row_array();
+            $question = $query["question_secret"]; 
+            $this->load->view('partials/header', $data);
+            $user = array( "pregunta" => $question);
+            $this->load->view('secret_answer', $user);
+            $this->load->view('partials/footers/login');
+        }else{
+            $this->db->select("id, answer_secret");
+            $this->db->from("usuarios");
+            $this->db->where("answer_secret", $this->input->post("answer_secret"));
+            $this->db->where("id", get_cookie("user_recovery"));
+            $this->db->limit(1);
+            $query = $this->db->get();
+            if($query->num_rows() == 1){
+                redirect("login/cambiar_clave");
+            }else{
+                $this->session->set_flashdata("answer_error","Esa no es la respuesta correcta a la pregunta secreta");
+                redirect("/");
+            }
+        }
     }
 
     public function salir(){
         $this->load->helper("url");
-        $this->session->sess_destroy();
+        $this->session->set_flashdata("exit", "¡Ha salido con éxito!");
         redirect("/");
     }
 }

@@ -24,7 +24,7 @@
             </div>
             <div class="uk-form-row uk-text-center">
                 <div class="uk-button-group">
-                    <a class="uk-button uk-button-danger" href="#restore" data-uk-modal> <i class="uk-icon-support"></i> Olvidé la contraseña </a>
+                    <a class="uk-button uk-button-danger" href="#" onclick="olvide_clave()"> <i class="uk-icon-support"></i> Olvidé la contraseña </a>
                     <a class="uk-button uk-button-primary" href="<?= base_url("login/registro") ?>"> <i class="uk-icon-user-plus"></i> Registrarse</a>
                 </div>    
             </div> 
@@ -38,8 +38,10 @@
         <div class="uk-modal-header uk-text-center">
                 <h1> Recuperación de cuenta</h1>
         </div>
-<h2> Pregunta Secreta</h2>
-        <div class="uk-modal-footer">
+        <div class="uk-modal-caption">
+        <form class="uk-form" action="">
+            <div class="uk-form-row"><input type="text"></div>
+        </form>
         </div>
     </div>
 </div>

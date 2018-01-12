@@ -11,9 +11,14 @@ class Usuario extends CI_Model{
         $this->db->select("username, password");
         $this->db->from("usuarios");
         $this->db->where("username", $user);
-        $this->db->where("password", $pass);
+        $this->db->where("password", md5($pass));
         $this->db->limit(1);
-        return $this->db->get();
+        $query = $this->db->get();
+        if( $query->num_rows() == 1 ){
+            return true;
+        }else{
+            return false;
+        }
     }
     public function logged(){
         $this->load->helper("url");
@@ -24,6 +29,13 @@ class Usuario extends CI_Model{
         }
     }
     public function logged_as_admin(){
+    }
+    public function change_password($id,$new_pass){
+        $change = array(
+            "password" => md5($new_pass)
+        );
+        $this->db->where("id",$id);
+        $this->db->update("usuarios", $change);
     }
 }
 ?>
