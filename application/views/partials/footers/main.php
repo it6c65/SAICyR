@@ -11,5 +11,10 @@
 <script src="<?= base_url("public/js/components/upload.min.js"); ?>"></script>
 <script src="<?= base_url("public/js/components/notify.min.js"); ?>"></script>
 <script src="<?= base_url("public/js/components/tooltip.min.js"); ?>"></script>
+<?php if( $this->session->flashdata('init')): ?>
+<script>
+    UIkit.notify( "<?= $this->session->flashdata('init'); ?>");
+</script>
+<?php endif; ?>
 </body>
 </html>

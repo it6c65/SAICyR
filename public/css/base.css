@@ -62,3 +62,12 @@ html{
 .uk-tab > li > a:hover{
     color: #aadddd !important;
 }
+
+.uk-modal-warning {
+    background-color: #fffceb !important;
+    color: #e28327;
+    border-color: rgba(226,131,39,0.3) !important;
+}
+.uk-modal-warning h1{
+    color: #6b6a33 !important;
+}

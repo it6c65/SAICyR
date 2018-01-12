@@ -75,12 +75,12 @@ $mains = array(
                     <div class="uk-dropdown uk-dropdown-navbar">
                         <ul class="uk-nav uk-nav-navbar">
                             <li><a href=""> <i class="uk-icon-cog"></i> Configurar Usuario </a></li>
-                            <li><a href=""> <i class="uk-icon-power-off"></i> Cerrar Sesión </a></li>
+                            <li><a href="<?= base_url("/login/salir") ?>"> <i class="uk-icon-power-off"></i> Cerrar Sesión </a></li>
                         </ul>
                     </div>
                 </li>
             </ul>
-            <button class="uk-button uk-button-danger uk-hidden-small"> <i class="uk-icon-power-off"></i> Cerrar sesión</button>
+            <a href="<?= base_url("/login/salir") ?>" class="uk-button uk-button-danger uk-hidden-small"> <i class="uk-icon-power-off"></i> Cerrar sesión</a>
         </div>
 </nav>
 
