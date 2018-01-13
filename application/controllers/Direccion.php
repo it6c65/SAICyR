@@ -1,8 +1,14 @@
 <?php
 class Direccion extends CI_Controller {
+    public function __construct(){
+        parent::__construct();
+        $this->load->library("session");
+        $this->load->model("usuario");
+        $this->usuario->logged();
+    }
     public function index(){
         $this->load->database();
-        $data = array( "title" => "Dirección", "header" => "Oficina de Dirección" );
+        $data = array( "title" => "Dirección", "header" => "Oficina de Dirección", "user" => $this->session->userdata("name")  );
         $this->load->helper('html');
         $this->load->helper('url');
         $this->load->helper('form');

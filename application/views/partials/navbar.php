@@ -69,9 +69,9 @@ $mains = array(
     <!-- Lado derecho del Barra Nav. Grande -->
         <div class="uk-navbar-flip uk-navbar-content uk-hidden-medium">
             <ul class="uk-navbar-nav">
-                <li class="uk-hidden-small"><a href="#"> <i class="uk-icon-medium uk-icon-user"></i> &nbsp; Usuario</a></li>
+            <li class="uk-hidden-small"><a href="#"> <i class="uk-icon-medium uk-icon-user"></i> &nbsp; <?= $user ?> </a></li>
                 <li class="uk-parent uk-visible-small" data-uk-dropdown="{mode:'click'}">
-                    <a href="#"> <i class="uk-icon-medium uk-icon-user"></i> &nbsp; Usuario</a>
+                <a href="#"> <i class="uk-icon-medium uk-icon-user"></i> &nbsp; <?= $user?> </a>
                     <div class="uk-dropdown uk-dropdown-navbar">
                         <ul class="uk-nav uk-nav-navbar">
                             <li><a href=""> <i class="uk-icon-cog"></i> Configurar Usuario </a></li>

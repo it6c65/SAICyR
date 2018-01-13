@@ -1,8 +1,14 @@
 <?php
 class Salon extends CI_Controller {
+    public function __construct(){
+        parent::__construct();
+        $this->load->library("session");
+        $this->load->model("usuario");
+        $this->usuario->logged();
+    }
     public function index(){
         $this->load->database();
-        $data = array( "title" => "Salón Principal", "header" => "Salón Principal" );
+        $data = array( "title" => "Salón Principal", "header" => "Salón Principal", "user" => $this->session->userdata("name")  );
         $this->load->helper('html');
         $this->load->helper('url');
         $this->load->helper('form');

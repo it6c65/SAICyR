@@ -7,7 +7,7 @@ class Inicio extends CI_Controller {
         $this->usuario->logged();
     }
     public function index(){
-        $titulo = array( "title" => "Inicio", "user" => $this->session->name );
+        $titulo = array( "title" => "Inicio", "user" => $this->session->userdata("name") );
         $this->load->helper('html');
         $this->load->helper('url');
         $this->load->view('partials/header', $titulo );
