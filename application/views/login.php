@@ -2,7 +2,7 @@
     <div class="uk-position-cover uk-flex uk-flex-column uk-flex-center uk-flex-middle">
         <?= form_open('login', array("class" => "uk-form") ) ?>
             <div class="uk-form-row uk-text-center">
-                <?= img("public/img/logon.svg", FALSE, array("alt" => "logo","width" => "400","height" => "500")); ?>
+                <?= img("public/img/logon.png", FALSE, array("alt" => "logo","width" => "400","height" => "500")); ?>
                 <?= validation_errors('<div class="uk-alert uk-alert-danger" data-uk-alert> 
                 <a class="uk-alert-close uk-close"></a>', "</div>"); ?>
                 <h2 class="uk-text-bold">Inicio de Sesión</h2>

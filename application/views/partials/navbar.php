@@ -24,11 +24,11 @@ $mains = array(
     <a href="#mobile" class="uk-navbar-toggle uk-visible-medium" data-uk-offcanvas></a>
     <!-- Logo centrado para pantalla pequeña -->
     <div class="uk-navbar-content uk-visible-small">
-        <?= img("public/img/logon.svg", FALSE, array("class" => "uk-margin-large-left")); ?>
+        <?= img("public/img/logon.png", FALSE, array("class" => "uk-margin-large-left")); ?>
     </div>
     <!-- Logo centrado para pantalla mediana con botones centrados -->
     <div class="uk-navbar-center uk-navbar-content uk-visible-medium">
-        <?= img("public/img/logon.svg", FALSE, array("alt" => "logo", "width" => "100", "height" => "60")); ?>
+        <?= img("public/img/logon.png", FALSE, array("alt" => "logo", "width" => "100", "height" => "60")); ?>
        <ul class="uk-navbar-nav">
              <li class="uk-hidden-small"><a href="#"> <i class="uk-icon-medium uk-icon-user"></i> &nbsp; Usuario</a></li>
         </ul>
@@ -38,7 +38,7 @@ $mains = array(
     </div>
     <!-- Barra de Navegación pantalla Grande -->
     <ul class="uk-navbar-nav uk-hidden-small uk-hidden-medium">
-    <?= img("public/img/logon.svg", FALSE, array("class" => "uk-navbar-brand")); ?>
+    <?= img("public/img/logon.png", FALSE, array("class" => "uk-navbar-brand")); ?>
         <?php foreach($mains as $principales): ?>
             <?php if($principales["lugar"] == $title ): ?>
                 <li <?= $active ?>> <a href="<?= $principales["url"] ?>"> <?= $principales["name"] ?></a></li>

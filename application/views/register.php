@@ -2,7 +2,7 @@
     <div class="uk-position-cover uk-flex uk-flex-column uk-flex-center uk-flex-middle">
             <?= form_open('login/registro', array("class" => "uk-form uk-form-horizontal uk-text-center", "onsubmit" => "return validar_usuario()") ) ?>
                 <div class="uk-form-row uk-text-center">
-                    <?= img("public/img/logon.svg", FALSE, array("alt" => "logo","width" => "200","height" => "200")); ?>
+                    <?= img("public/img/logon.png", FALSE, array("alt" => "logo","width" => "200","height" => "200")); ?>
         <hr>
                     <h2 class="uk-text-bold">Registro de Usuario</h2>
                     <?= validation_errors('<div class="uk-alert uk-alert-danger" data-uk-alert> 
