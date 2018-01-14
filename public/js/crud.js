@@ -67,9 +67,9 @@ function crudViewModel(){
     //Borra un utensilio
     self.delete = function(index){
         UIkit.modal.confirm("¿Estás seguro de que deseas borrarlo?", function(){
-            $.post(getBaseUrl()+getController()+"borrar", {data: ko.toJSON({ tool: self.tools()[index] }) 
+            $.post(getBaseUrl()+getController()+"borrar", {data: ko.toJSON({ tool: self.paginated()[index] }) 
             });
-            self.tools.remove( self.tools()[index] );
+            self.tools.remove( self.paginated()[index] );
             UIkit.notify(" <i class='uk-icon-check'></i> Borrado con éxito", "success");
         });
     }
@@ -212,7 +212,7 @@ function crudViewModel(){
         }
     }
     self.save = function(index){
-        $.post(getBaseUrl()+getController()+"editar", {data: ko.toJSON({ tool: self.tools()[index] }) 
+        $.post(getBaseUrl()+getController()+"editar", {data: ko.toJSON({ tool: self.paginated()[index] }) 
         });
         UIkit.notify("<i class='uk-icon-check'></i> Guardado con éxito", "success");
     }
