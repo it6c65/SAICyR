@@ -152,7 +152,7 @@
                             <figcaption class="uk-overlay-panel uk-overlay-background uk-overlay-bottom uk-text-center">
                                 <div class="uk-button-group">
                                     <button class="uk-button uk-button-success uk-button-small" data-bind="click: function() { $parent.addImage($parent.gallery()[$index()].id) }, visible: $parent.addOption "> <i class="uk-icon-photo"></i> Añadir </button>
-                                    <button class="uk-button uk-button-primary uk-button-small" data-bind="click: function() { $parent.tools()[$parent.changeImg()].img($parent.gallery()[$index()].url()) }, visible: !$parent.addOption()"> <i class="uk-icon-clone"></i> Cambiar </button>
+                                    <button class="uk-button uk-button-primary uk-button-small" data-bind="click: function() { $parent.paginated()[$parent.changeImg()].img($parent.gallery()[$index()].url()) }, visible: !$parent.addOption()"> <i class="uk-icon-clone"></i> Cambiar </button>
                                     <button class="uk-button uk-button-danger uk-button-small" data-bind="click: function() { $parent.deleteImg($index()) }"> <i class="uk-icon-trash"></i> Borrar </button>
                                 </div>
                             </figcaption>

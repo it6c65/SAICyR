@@ -37,5 +37,40 @@ class Usuario extends CI_Model{
         $this->db->where("id",$id);
         $this->db->update("usuarios", $change);
     }
+    public function change_question($id, $new_question){
+        $change = array(
+            "question_secret" => $new_question
+        );
+        $this->db->where("id",$id);
+        $this->db->update("usuarios", $change);
+    }
+    public function change_answer($id, $new_answer){
+        $change = array(
+            "answer_secret" => $new_answer
+        );
+        $this->db->where("id",$id);
+        $this->db->update("usuarios", $change);
+    }
+
+    public function borrar(){
+        $json = $this->input->post('data');
+        $data = json_decode($json);
+        $this->db->where('id', $data->user->id);
+        $this->db->delete('usuarios');
+    }
+    public function be_admin(){
+        $json = $this->input->post('data');
+        $data = json_decode($json);
+        $this->db->set('tipo', 'Director');
+        $this->db->where('id', $data->user->id);
+        $this->db->update('usuarios');
+    }
+    public function be_user(){
+        $json = $this->input->post('data');
+        $data = json_decode($json);
+        $this->db->set('tipo', 'Encargado');
+        $this->db->where('id', $data->user->id);
+        $this->db->update('usuarios');
+    }
 }
 ?>

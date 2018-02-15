@@ -1,4 +1,6 @@
 <?php
+/* Configuro el reloj del servidor al de Venezuela */
+date_default_timezone_set('America/Caracas');
 class Escultura extends CI_Controller {
     public function __construct(){
         parent::__construct();
@@ -8,7 +10,7 @@ class Escultura extends CI_Controller {
     }
     public function index(){
         $this->load->database();
-        $data = array( "title" => "Taller de Escultura", "header" => "Taller de Escultura", "user" => $this->session->userdata("name")  );
+        $data = array( "title" => "Taller de Escultura", "header" => "Taller de Escultura", "user" => $this->session->userdata("name"), "admin" => $this->session->userdata("segurity")   );
         $this->load->helper('html');
         $this->load->helper('url');
         $this->load->helper('form');
@@ -29,10 +31,23 @@ class Escultura extends CI_Controller {
     }
     public function editar(){
         $this->load->model('actualizar');
+        $this->registro("Modifico");
         $this->actualizar->inventario();
     }
     public function borrar(){
         $this->load->model('borrar');
+        $this->registro("Elimino");
         $this->borrar->inventario();
+    }
+
+    public function registro($accion){
+        $data = array(
+            "fecha_at" => date("Y-m-d"),
+            "hora" => date("H:i:s"),
+            "usuario" => $this->session->userdata("name"),
+            "accion" => $accion,
+            "area" => "Taller de Escultura"
+        );
+        $this->db->insert('registro', $data);
     }
 }

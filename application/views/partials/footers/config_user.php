@@ -6,11 +6,20 @@
 <script src="<?= base_url("public/js/jquery3.min.js"); ?>"></script>
 <script src="<?= base_url("public/js/uikit.js"); ?>"></script>
 <script src="<?= base_url("public/js/knockout.js"); ?>"></script>
-<script src="<?= base_url("public/js/img_preview.js"); ?>"></script>
 <script src="<?= base_url("public/js/list.min.js"); ?>"></script>
-<script src="<?= base_url("public/js/crud.js"); ?>"></script>
-<script src="<?= base_url("public/js/components/upload.min.js"); ?>"></script>
+<script src="<?= base_url("public/js/search_registro.js"); ?>"></script>
 <script src="<?= base_url("public/js/components/notify.min.js"); ?>"></script>
+<script src="<?= base_url("public/js/components/form-password.min.js"); ?>"></script>
 <script src="<?= base_url("public/js/components/tooltip.min.js"); ?>"></script>
+<?php if( $this->session->flashdata('save_question')): ?>
+<script>
+    UIkit.notify( "<?= $this->session->flashdata('save_question'); ?>", "success");
+</script>
+<?php endif; ?>
+<?php if( $this->session->flashdata('init')): ?>
+<script>
+    UIkit.notify( "<?= $this->session->flashdata('init'); ?>");
+</script>
+<?php endif; ?>
 </body>
 </html>

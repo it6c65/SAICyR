@@ -1,5 +1,6 @@
 <?php
-
+/* Configuro el reloj del servidor al de Venezuela */
+date_default_timezone_set('America/Caracas');
 /* ID areas: */
 /*     1 - taller */
 /*     2 - laboratorio */
@@ -16,10 +17,14 @@ class Agregar extends CI_Model{
     }
 
     public function taller(){
+        /* la funcion registra la accion antes de ejecutarse */
+        $this->registro("Agrego", "Taller" );
+        /* verifica si el objeto tiene imagen asociada */
         $img = $this->input->post('img');
         if( $img == null ){
             $img = "1";
         }
+        /* Concreta todos los datos del objeto */
         $data = array(
             'nombre' => $this->input->post('nombre'),
             'codigo' => $this->input->post('codigo'),
@@ -32,10 +37,14 @@ class Agregar extends CI_Model{
     }
 
     public function laboratorio(){
+        /* la funcion registra la accion antes de ejecutarse */
+        $this->registro("Agrego", "Laboratorio" );
+        /* verifica si el objeto tiene imagen asociada */
         $img = $this->input->post('img');
         if( $img == null ){
             $img = "1";
         }
+        /* Concreta todos los datos del objeto */
         $data = array(
             'nombre' => $this->input->post('nombre'),
             'codigo' => $this->input->post('codigo'),
@@ -49,10 +58,14 @@ class Agregar extends CI_Model{
 
 
     public function oficina(){
+        /* la funcion registra la accion antes de ejecutarse */
+        $this->registro("Agrego", "Oficina" );
+        /* verifica si el objeto tiene imagen asociada */
         $img = $this->input->post('img');
         if( $img == null ){
             $img = "1";
         }
+        /* Concreta todos los datos del objeto */
         $data = array(
             'nombre' => $this->input->post('nombre'),
             'codigo' => $this->input->post('codigo'),
@@ -66,10 +79,14 @@ class Agregar extends CI_Model{
 
 
     public function salon_principal(){
+        /* la funcion registra la accion antes de ejecutarse */
+        $this->registro("Agrego", "Salón Principal" );
+        /* verifica si el objeto tiene imagen asociada */
         $img = $this->input->post('img');
         if( $img == null ){
             $img = "1";
         }
+        /* Concreta todos los datos del objeto */
         $data = array(
             'nombre' => $this->input->post('nombre'),
             'codigo' => $this->input->post('codigo'),
@@ -82,10 +99,14 @@ class Agregar extends CI_Model{
     }
 
     public function sala_arte(){
+        /* la funcion registra la accion antes de ejecutarse */
+        $this->registro("Agrego", "Sala de Arte" );
+        /* verifica si el objeto tiene imagen asociada */
         $img = $this->input->post('img');
         if( $img == null ){
             $img = "1";
         }
+        /* Concreta todos los datos del objeto */
         $data = array(
             'nombre' => $this->input->post('nombre'),
             'codigo' => $this->input->post('codigo'),
@@ -98,10 +119,14 @@ class Agregar extends CI_Model{
     }
 
     public function taller_escultura(){
+        /* la funcion registra la accion antes de ejecutarse */
+        $this->registro("Agrego", "Taller de Escultura" );
+        /* verifica si el objeto tiene imagen asociada */
         $img = $this->input->post('img');
         if( $img == null ){
             $img = "1";
         }
+        /* Concreta todos los datos del objeto */
         $data = array(
             'nombre' => $this->input->post('nombre'),
             'codigo' => $this->input->post('codigo'),
@@ -114,10 +139,14 @@ class Agregar extends CI_Model{
     }
 
     public function deposito(){
+        /* la funcion registra la accion antes de ejecutarse */
+        $this->registro("Agrego", "Depósito" );
+        /* verifica si el objeto tiene imagen asociada */
         $img = $this->input->post('img');
         if( $img == null ){
             $img = "1";
         }
+        /* Concreta todos los datos del objeto */
         $data = array(
             'nombre' => $this->input->post('nombre'),
             'codigo' => $this->input->post('codigo'),
@@ -135,6 +164,17 @@ class Agregar extends CI_Model{
             'url' => base_url("public/img/subidas/").$name_img
         );
         return $this->db->insert('galeria', $data);
+    }
+
+    public function registro($accion, $area){
+        $data = array(
+            "fecha_at" => date("Y-m-d"),
+            "hora" => date("H:i:s"),
+            "usuario" => $this->session->userdata("name"),
+            "accion" => $accion,
+            "area" => $area
+        );
+        $this->db->insert('registro', $data);
     }
 }
 

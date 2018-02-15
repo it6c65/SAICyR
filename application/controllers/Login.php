@@ -21,12 +21,20 @@ class Login extends CI_Controller{
             $usuario = $this->input->post("usuario");
             $clave = $this->input->post("clave");
             if($this->usuario->init_session($usuario,$clave)){
+                $this->db->select("username,tipo,id");
+                $this->db->from("usuarios");
+                $this->db->where("username", $usuario);
+                $this->db->limit(1);
+                $permiso= $this->db->get()->row();
                 $data_user = array(
                     "logged" => true,
-                    "name" => $usuario
+                    "name" => $usuario,
+                    "segurity" => $permiso->tipo,
+                    "id" => $permiso->id
                 );
                 $this->session->set_userdata($data_user);
                 $this->session->set_flashdata("init", "¡Ha iniciado sesión con éxito!");
+                $this->registro_admin("Entrar","Inicio");
                 redirect("/inicio");
             }else{
                 $this->session->set_flashdata("error_session","Usuario o clave inválidos");
@@ -136,6 +144,18 @@ class Login extends CI_Controller{
     public function salir(){
         $this->load->helper("url");
         $this->session->set_flashdata("exit", "¡Ha salido con éxito!");
+        $this->registro_admin("Salir", "Login");
         redirect("/");
+    }
+
+    public function registro_admin($accion,$area){
+        $data = array(
+            "fecha_at" => date("Y-m-d"),
+            "hora" => date("H:i:s"),
+            "usuario" => $this->session->userdata("name"),
+            "accion" => $accion,
+            "area" => $area
+        );
+        $this->db->insert('registro', $data);
     }
 }

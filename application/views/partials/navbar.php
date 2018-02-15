@@ -9,7 +9,7 @@ $dropdown = array(
 );
 $mains = array(
     array("url" => base_url("inicio"), "name" => '<i class="uk-icon-small uk-icon-home"></i> Inicio', "lugar" => "Inicio"),
-    array("url" => base_url("obras"), "name" => '<i class="uk-icon-diamond"></i> Obras ', "lugar" => "Obras"),
+    /* array("url" => base_url("obras"), "name" => '<i class="uk-icon-diamond"></i> Obras ', "lugar" => "Obras"), */
     array("url" => base_url("laboratorio"), "name" => '<i class="uk-icon-small uk-icon-flask"></i> Laboratorio de CyR', "lugar" => "Laboratorio"),
     array("url" => base_url("taller"), "name" => '<i class="uk-icon-small uk-icon-puzzle-piece"> </i> Taller de CyR', "lugar" => "Taller")
 );
@@ -30,7 +30,7 @@ $mains = array(
     <div class="uk-navbar-center uk-navbar-content uk-visible-medium">
         <?= img("public/img/logon.png", FALSE, array("alt" => "logo", "width" => "100", "height" => "60")); ?>
        <ul class="uk-navbar-nav">
-             <li class="uk-hidden-small"><a href="#"> <i class="uk-icon-medium uk-icon-user"></i> &nbsp; Usuario</a></li>
+           <li class="uk-hidden-small"><a href="#"> <i class="uk-icon-medium uk-icon-user"></i> &nbsp;  <?= $user ?> </a></li>
         </ul>
         &nbsp;
         &nbsp;
@@ -63,18 +63,20 @@ $mains = array(
                 </ul>
             </div>
         </li>
-        <li><a href="<?= base_url("adus") ?>"> <i class="uk-icon-users"></i> Administrar usuarios</a></li>
+        <?php if($admin == "Director"): ?>
+        <li><a href="<?= base_url("admuser") ?>"> <i class="uk-icon-users"></i> Administrar usuarios</a></li>
+        <?php endif; ?>
     </ul>
 
     <!-- Lado derecho del Barra Nav. Grande -->
         <div class="uk-navbar-flip uk-navbar-content uk-hidden-medium">
             <ul class="uk-navbar-nav">
-            <li class="uk-hidden-small"><a href="#"> <i class="uk-icon-medium uk-icon-user"></i> &nbsp; <?= $user ?> </a></li>
+            <li class="uk-hidden-small"><a href="<?= base_url("/usuario_actual") ?>"> <i class="uk-icon-medium uk-icon-user"></i> &nbsp; <?= $user ?> </a></li>
                 <li class="uk-parent uk-visible-small" data-uk-dropdown="{mode:'click'}">
                 <a href="#"> <i class="uk-icon-medium uk-icon-user"></i> &nbsp; <?= $user?> </a>
                     <div class="uk-dropdown uk-dropdown-navbar">
                         <ul class="uk-nav uk-nav-navbar">
-                            <li><a href=""> <i class="uk-icon-cog"></i> Configurar Usuario </a></li>
+                        <li><a href="<?= base_url("/usuario_actual") ?>"> <i class="uk-icon-cog"></i> Configurar Usuario </a></li>
                             <li><a href="<?= base_url("/login/salir") ?>"> <i class="uk-icon-power-off"></i> Cerrar Sesión </a></li>
                         </ul>
                     </div>
@@ -107,7 +109,9 @@ $mains = array(
                         <?php endforeach; ?>
                     </ul>
             </li>
-            <li><a href=""> <i class="uk-icon-users"></i> Administrar usuarios</a></li>
+        <?php if($admin == "Director"): ?>
+            <li><a href="<?= base_url('admuser') ?>"> <i class="uk-icon-users"></i> Administrar usuarios</a></li>
+        <?php endif; ?>
         </ul>
     </div>
 </div>
