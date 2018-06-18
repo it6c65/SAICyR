@@ -22,6 +22,8 @@ class Actualizar extends CI_Model{
         $this->db->set('codigo', $data->tool->code );
         $this->db->set('condicion', $data->tool->current_condition );
         $this->db->set('categoria', $data->tool->current_category );
+        $this->db->set('cantidad', $data->tool->quantity);
+        $this->db->set('escala', $data->tool->scale);
         $this->db->set('galeria_id', $img_id );
         $this->db->where('id', $data->tool->id);
         $this->db->update("inventario");

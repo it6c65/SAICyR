@@ -32,10 +32,12 @@
             <thead>
                 <tr>
                     <th class="uk-text-center">Imagen</th>
-                    <th class="uk-text-center">Nombre del Elemento</th>
-                    <th class="uk-text-center">Codigo del Elemento</th>
+                    <th class="uk-text-center">Nombre</th>
+                    <th class="uk-text-center">Codigo</th>
                     <th class="uk-text-center">Condición</th>
                     <th class="uk-text-center">Categoría</th>
+                    <th class="uk-text-center">Cantidad</th>
+                    <th class="uk-text-center">Escala</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,6 +64,13 @@
                         </select>
                     </td>
                     <td class="uk-text-center">
+                        <input type="number" placeholder="Cantidad" id="add_quantity" name="cantidad" data-bind="value: addQuantity" class="uk-form-width-mini">
+                    </td>
+                    <td class="uk-text-center">
+                        <select id="add_scale" name="escala" data-bind="options: scales_group, value: addScale" class="uk-form-width-mini">
+                        </select>
+                    </td>
+                    <td class="uk-text-center">
                         <button class="uk-button uk-button-success" type="submit"><i class="uk-icon-send"></i> Enviar </button>
                     </td>
                 </tr>
@@ -81,6 +90,8 @@
                     <tr>
                         <th class="uk-text-center">Imagen</th>
                         <th class="uk-text-center">Nombre</th>
+                        <th class="uk-text-center">Cantidad</th>
+                        <th class="uk-text-center">Escala</th>
                         <th class="uk-text-center">Codigo</th>
                         <th class="uk-text-center">Condición</th>
                         <th class="uk-text-center">Categoría</th>
@@ -102,13 +113,25 @@
                             </a>
                        </td>
                         <td class="uk-text-center uk-text-bold uk-text-large"> <p data-bind="text: name, visible: !editing()"></p>
-                            <input type="text" id="nombre" data-bind="value: name, visible: editing">
+                            <input type="text" id="nombre" data-bind="value: name, visible: editing" class="uk-form-width-small">
+                        </td>
+                        <td class="uk-text-center">
+                            <p data-bind="text: quantity, visible: !editing()"></p>
+                            <div id="editando_cantidades" data-bind="visible: editing">
+                                <button class="uk-button uk-button-success uk-button-mini" data-bind="click: function(){ $parent.sumQuan($index()) }"><span class="uk-icon-plus"></span></button>
+                                <input id="cantidad" type="number" data-bind="value:quantity" class="uk-form-width-mini">
+                                <button class="uk-button uk-button-danger uk-button-mini" data-bind="click: function(){ $parent.subQuan($index()) }" ><span class="uk-icon-minus"></span></button>
+                            </div>
+                        </td>
+                        <td class="uk-text-center">
+                            <p data-bind="text: scale, visible: !editing()"></p>
+                            <select id="escala" name="Escala" data-bind="options: $parent.scales_group, visible: editing, value: scale" class="uk-form-width-mini"></select>
                         </td>
                         <td class="uk-text-center"> <p data-bind="text: code, visible: !editing()"></p> 
                             <p data-bind="ifnot: code, visible: !editing()"> No tiene código</p>
-                            <input id="codigo" type="text" data-bind="value: code, visible: editing">
+                            <input id="codigo" type="text" data-bind="value: code, visible: editing" class="uk-form-width-small">
                         </td>
-                        <td class="uk-text-center"> <div data-bind="text: current_condition, visible: !editing(), css: { 'uk-badge': current_condition, 'uk-badge-danger': current_condition() == 'Malo', 'uk-badge-success': current_condition() == 'Bueno' }"></div>
+                        <td class="uk-text-center"> <div data-bind="text: current_condition, visible: !editing(), css: { 'uk-badge': current_condition, 'uk-badge-danger': current_condition() == 'Dañado', 'uk-badge-success': current_condition() == 'Operativo' }"></div>
                         <select id="condicion" name="Condicion" data-bind="options: $parent.conditions, value: current_condition, visible: editing">
                         </select>
                         </td>

@@ -30,6 +30,8 @@ class Agregar extends CI_Model{
             'codigo' => $this->input->post('codigo'),
             'condicion' => $this->input->post('condicion'),
             'categoria' => $this->input->post('categoria'),
+            'cantidad' => $this->input->post('cantidad'),
+            'escala' => $this->input->post('escala'),
             'area_id' => "1",
             'galeria_id' => $img
         );
@@ -50,6 +52,8 @@ class Agregar extends CI_Model{
             'codigo' => $this->input->post('codigo'),
             'condicion' => $this->input->post('condicion'),
             'categoria' => $this->input->post('categoria'),
+            'cantidad' => $this->input->post('cantidad'),
+            'escala' => $this->input->post('escala'),
             'area_id' => "2",
             'galeria_id' => $img
         );
@@ -71,6 +75,8 @@ class Agregar extends CI_Model{
             'codigo' => $this->input->post('codigo'),
             'condicion' => $this->input->post('condicion'),
             'categoria' => $this->input->post('categoria'),
+            'cantidad' => $this->input->post('cantidad'),
+            'escala' => $this->input->post('escala'),
             'area_id' => "3",
             'galeria_id' => $img
         );
@@ -92,6 +98,8 @@ class Agregar extends CI_Model{
             'codigo' => $this->input->post('codigo'),
             'condicion' => $this->input->post('condicion'),
             'categoria' => $this->input->post('categoria'),
+            'cantidad' => $this->input->post('cantidad'),
+            'escala' => $this->input->post('escala'),
             'area_id' => "4",
             'galeria_id' => $img
         );
@@ -112,6 +120,8 @@ class Agregar extends CI_Model{
             'codigo' => $this->input->post('codigo'),
             'condicion' => $this->input->post('condicion'),
             'categoria' => $this->input->post('categoria'),
+            'cantidad' => $this->input->post('cantidad'),
+            'escala' => $this->input->post('escala'),
             'area_id' => "5",
             'galeria_id' => $img
         );
@@ -132,6 +142,8 @@ class Agregar extends CI_Model{
             'codigo' => $this->input->post('codigo'),
             'condicion' => $this->input->post('condicion'),
             'categoria' => $this->input->post('categoria'),
+            'cantidad' => $this->input->post('cantidad'),
+            'escala' => $this->input->post('escala'),
             'area_id' => "6",
             'galeria_id' => $img
         );
@@ -152,6 +164,8 @@ class Agregar extends CI_Model{
             'codigo' => $this->input->post('codigo'),
             'condicion' => $this->input->post('condicion'),
             'categoria' => $this->input->post('categoria'),
+            'cantidad' => $this->input->post('cantidad'),
+            'escala' => $this->input->post('escala'),
             'area_id' => "7",
             'galeria_id' => $img
         );

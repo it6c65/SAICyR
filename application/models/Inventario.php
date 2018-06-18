@@ -16,7 +16,7 @@ class Inventario extends CI_Model{
     }
 
     public function taller(){
-        $this->db->select("inventario.id, nombre, codigo, condicion, categoria, galeria_id, galeria.url");
+        $this->db->select("inventario.id, nombre, codigo, condicion, categoria, cantidad, escala, galeria_id, galeria.url");
         $this->db->from("inventario");
         $this->db->join('galeria','galeria.id = galeria_id');
         $this->db->where('area_id', 1);
@@ -26,7 +26,7 @@ class Inventario extends CI_Model{
     }
 
     public function laboratorio(){
-        $this->db->select("inventario.id, nombre, codigo, condicion, categoria, galeria_id, galeria.url");
+        $this->db->select("inventario.id, nombre, codigo, condicion, categoria, cantidad, escala, galeria_id, galeria.url");
         $this->db->from("inventario");
         $this->db->join('galeria','galeria.id = galeria_id');
         $this->db->where('area_id', 2);
@@ -36,7 +36,7 @@ class Inventario extends CI_Model{
     }
 
     public function oficina(){
-        $this->db->select("inventario.id, nombre, codigo, condicion, categoria, galeria_id, galeria.url");
+        $this->db->select("inventario.id, nombre, codigo, condicion, categoria, cantidad, escala, galeria_id, galeria.url");
         $this->db->from("inventario");
         $this->db->join('galeria','galeria.id = galeria_id');
         $this->db->where('area_id', 3);
@@ -46,7 +46,7 @@ class Inventario extends CI_Model{
     }
 
     public function salon_principal(){
-        $this->db->select("inventario.id, nombre, codigo, condicion, categoria, galeria_id, galeria.url");
+        $this->db->select("inventario.id, nombre, codigo, condicion, categoria, cantidad, escala, galeria_id, galeria.url");
         $this->db->from("inventario");
         $this->db->join('galeria','galeria.id = galeria_id');
         $this->db->where('area_id', 4);
@@ -56,7 +56,7 @@ class Inventario extends CI_Model{
     }
 
     public function sala_arte(){
-        $this->db->select("inventario.id, nombre, codigo, condicion, categoria, galeria_id, galeria.url");
+        $this->db->select("inventario.id, nombre, codigo, condicion, categoria, cantidad, escala, galeria_id, galeria.url");
         $this->db->from("inventario");
         $this->db->join('galeria','galeria.id = galeria_id');
         $this->db->where('area_id', 5);
@@ -66,7 +66,7 @@ class Inventario extends CI_Model{
     }
 
     public function taller_escultura(){
-        $this->db->select("inventario.id, nombre, codigo, condicion, categoria, galeria_id, galeria.url");
+        $this->db->select("inventario.id, nombre, codigo, condicion, categoria, cantidad, escala, galeria_id, galeria.url");
         $this->db->from("inventario");
         $this->db->join('galeria','galeria.id = galeria_id');
         $this->db->where('area_id', 6);
@@ -76,7 +76,7 @@ class Inventario extends CI_Model{
     }
 
     public function deposito(){
-        $this->db->select("inventario.id, nombre, codigo, condicion, categoria, galeria_id, galeria.url");
+        $this->db->select("inventario.id, nombre, codigo, condicion, categoria, cantidad, escala, galeria_id, galeria.url");
         $this->db->from("inventario");
         $this->db->join('galeria','galeria.id = galeria_id');
         $this->db->where('area_id', 7);

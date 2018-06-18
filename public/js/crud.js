@@ -19,6 +19,8 @@ function getController(){
 function tool(data){
     this.id = data.id;
     this.name = ko.observable(data.nombre);
+    this.quantity = ko.observable(data.cantidad);
+    this.scale = ko.observable(data.escala);
     this.code = ko.observable(data.codigo);
     this.current_condition = ko.observable(data.condicion);
     this.current_category = ko.observable(data.categoria);
@@ -61,9 +63,11 @@ function crudViewModel(){
     //Lista de todos las herramientas
     self.tools = ko.observableArray([]);
     //Todas las condiciones posibles (usadas para designar el CSS)
-    self.conditions = ko.observableArray(['Regular','Malo','Bueno']);
+    self.conditions = ko.observableArray(['Operativo','En Reparación','Dañado']);
     //Todas las catergorias (usadas para designar el CSS)
     self.categories = ko.observableArray(['Oficina','Mueble','Quimico']);
+    //Todas las escalas disponibles
+    self.scales_group = ko.observableArray(['Unidades','Kgrs','Grs']);
     //Borra un utensilio
     self.delete = function(index){
         UIkit.modal.confirm("¿Estás seguro de que deseas borrarlo?", function(){
@@ -73,6 +77,14 @@ function crudViewModel(){
             UIkit.notify(" <i class='uk-icon-check'></i> Borrado con éxito", "success");
         });
     }
+    //Sumar a la cantidad en el editar 
+    self.sumQuan =  function(index){
+        self.paginated()[index].quantity(Number(self.paginated()[index].quantity()) + 1);
+    };
+    //Restar a la cantidad en el editar  
+    self.subQuan = function(index){
+        self.paginated()[index].quantity(Number(self.paginated()[index].quantity()) - 1);
+    };
 
     self.getImages = function(){
         $.getJSON(getBaseUrl()+"gallery", function(data){
@@ -113,15 +125,19 @@ function crudViewModel(){
     };
     self.changeImg = ko.observable();
 
+    //Campos para añadir la herramienta
     self.addName = ko.observable("");
     self.addCode = ko.observable("");
     self.addCondition = ko.observable();
     self.addCategory = ko.observable();
+    self.addQuantity = ko.observable("1");
+    self.addScale = ko.observable();
     self.addImage = ko.observable();
     self.addOption = ko.observable(false);
 
     // agrega las herramientas a la base de datos con AJAX
     self.SubmitAdd = function(){
+        // chequea los primeros datos nombre y codigo
         var check_name = /([a-z]|[A-Z]| ){2,30}/;
         var check_code = /([0-9]|-){1,999999999999999}/;
         if(self.addName() === ""){
@@ -129,22 +145,32 @@ function crudViewModel(){
             $("#add_name").attr("title","¡No olvides ponerle nombre!");
             return false;
         }
+        //encapsula los datos de la herramienta en un objeto
         addTool = {
             nombre: self.addName(),
             codigo: self.addCode(),
             condicion: self.addCondition(),
             categoria: self.addCategory(),
+            cantidad: self.addQuantity(),
+            escala: self.addScale(),
             img: self.addImage()
         };
-        $.post(getBaseUrl()+getController()+"agregar", addTool);
-        UIkit.notify(" <i class='uk-icon-check'></i> Añadido con éxito", "success");
-        self.resetSubmit();
-        self.getTools();
+        //manda un AJAX post para agregar los datos
+        $.post(getBaseUrl()+getController()+"agregar", addTool, function(data, status){
+            if(status == "success"){
+                UIkit.notify(" <i class='uk-icon-check'></i> Añadido con éxito", "success");
+                self.resetSubmit();
+            }else{ UIkit.notify(" <i class='uk-icon-times'></i> Ha habido un error", "danger");
+                self.resetSubmit();
+            }
+        });
+            self.getTools();
     };
+    //reinicia el formulario
     self.resetSubmit = function(){
         self.addName("");
         self.addCode("");
-        self.addCondition("Regular");
+        self.addCondition("Operativo");
         self.addCategory("Oficina");
         self.addImage(null);
     };
