@@ -15,7 +15,7 @@ function user(data){
         this.is_admin = ko.observable(false);
     }
     this.type = data.tipo;
-    this.area = data.area_id;
+    this.area = data.area_id - 1;
 }
 
 function userViewModel(){
@@ -32,6 +32,15 @@ function userViewModel(){
     }
     self.getUsers();
     self.users = ko.observableArray([]);
+    /* ID areas: */
+    /*     1 - taller */
+    /*     2 - laboratorio */
+    /*     3 - oficina */
+    /*     4 - salon principal */
+    /*     5 - sala de arte */
+    /*     6 - taller de escultura */
+    /*     7 - deposito */
+    self.areas = ko.observableArray(["Taller","Laboratorio", "Oficina", "Salón Principal","Sala de Arte", "Taller de Escultura", "Depósito"]);
 
     self.delete_user =  function(index){
         UIkit.modal.confirm("¿Estás seguro de que deseas borrarlo?", function(){

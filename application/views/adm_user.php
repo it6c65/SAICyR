@@ -25,7 +25,7 @@
                <td class="uk-text-center"> <em class= "uk-text-large" data-bind="text: name"></em> </td>
                <td class="uk-text-center"> <span class="uk-text-muted" data-bind="text: realname"></span> </td>
                <td class="uk-text-center"> <span class="uk-text-warning uk-text-bold" data-bind="text: type"></span> </td>
-               <td class="uk-text-center"> <span class="uk-text-primary uk-text-bold" data-bind="text: area"></span> </td>
+               <td class="uk-text-center"> <span class="uk-text-primary uk-text-bold" data-bind="text:  $parent.areas()[area]"></span> </td>
                <td class="uk-text-center">
                     <button class="uk-button uk-button-primary" style="background-color:rgb(40,70,110);" data-bind="visible: !is_admin(), click: function(){ $parent.become_admin( $index() ) }"> <i class="uk-icon-user-secret"></i> Volverlo administrador</button>
                     <button class="uk-button uk-button-primary"  data-bind="visible: is_admin, click: function(){ $parent.become_user( $index() ) }"> <i class="uk-icon-user"></i> Volverlo usuario</button>
