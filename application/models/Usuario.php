@@ -58,17 +58,12 @@ class Usuario extends CI_Model{
         $this->db->where('id', $data->user->id);
         $this->db->delete('usuarios');
     }
-    public function be_admin(){
+    public function editar(){
         $json = $this->input->post('data');
         $data = json_decode($json);
-        $this->db->set('tipo', 'Director');
-        $this->db->where('id', $data->user->id);
-        $this->db->update('usuarios');
-    }
-    public function be_user(){
-        $json = $this->input->post('data');
-        $data = json_decode($json);
-        $this->db->set('tipo', 'Encargado');
+        $this->db->set('username', $data->user->name);
+        $this->db->set('realname', $data->user->realname);
+        $this->db->set('area_id', $data->user->area);
         $this->db->where('id', $data->user->id);
         $this->db->update('usuarios');
     }

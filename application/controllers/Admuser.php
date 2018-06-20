@@ -25,12 +25,8 @@ class Admuser extends CI_Controller {
         $this->load->model("usuario");
         $this->usuario->borrar();
     }
-    public function become_admin(){
+    public function editar(){
         $this->load->model("usuario");
-        $this->usuario->be_admin();
-    }
-    public function become_user(){
-        $this->load->model("usuario");
-        $this->usuario->be_user();
+        $this->usuario->editar();
     }
 }

@@ -1,7 +1,7 @@
     </div>
 </div>
 <footer class="uk-position-bottom">
- <i class="uk-icon-creative-commons"></i> <a href="" class="uk-text-contrast">Acerca de</a> 
+     <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" data-uk-tooltip title="Hecho por Luis Ilarraza con la colaboracion de Francisco Morillo y Andrik Arguello"> <?= img("public/img/small_license.png"); ?> </a>
 </footer>
 <script src="<?= base_url("public/js/jquery3.min.js"); ?>"></script>
 <script src="<?= base_url("public/js/uikit.js"); ?>"></script>

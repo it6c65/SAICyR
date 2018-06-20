@@ -16,6 +16,7 @@ function user(data){
     }
     this.type = data.tipo;
     this.area = data.area_id - 1;
+    this.editing = ko.observable(false);
 }
 
 function userViewModel(){
@@ -27,7 +28,7 @@ function userViewModel(){
                 return new user(item);
             });
             self.users(mappedUsers);
-            self.users.remove( mappedUsers[0] );
+            // self.users.remove( mappedUsers[0] );
         });
     }
     self.getUsers();
@@ -40,7 +41,7 @@ function userViewModel(){
     /*     5 - sala de arte */
     /*     6 - taller de escultura */
     /*     7 - deposito */
-    self.areas = ko.observableArray(["Taller","Laboratorio", "Oficina", "Salón Principal","Sala de Arte", "Taller de Escultura", "Depósito"]);
+    self.areas = ko.observableArray(["Taller","Laboratorio", "Oficina", "Salón Principal","Sala de Arte", "Taller de Escultura", "Depósito","Todas"]);
 
     self.delete_user =  function(index){
         UIkit.modal.confirm("¿Estás seguro de que deseas borrarlo?", function(){
@@ -49,13 +50,8 @@ function userViewModel(){
             self.users.remove( self.users()[index] );
         });
     }
-    self.become_user = function(index){
-        $.post(getBaseUrl()+"admuser/"+"become_user", {data: ko.toJSON({ user: self.users()[index] }) 
-        });
-        self.getUsers();
-    }
-    self.become_admin = function(index){
-        $.post(getBaseUrl()+"admuser/"+"become_admin", {data: ko.toJSON({ user: self.users()[index] }) 
+    self.save = function(index){
+        $.post(getBaseUrl()+"admuser/"+"editar", {data: ko.toJSON({ user: self.users()[index] }) 
         });
         self.getUsers();
     }

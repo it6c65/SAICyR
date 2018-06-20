@@ -22,14 +22,23 @@
         </div>
        <tbody data-bind="foreach: users">
            <tr>
-               <td class="uk-text-center"> <em class= "uk-text-large" data-bind="text: name"></em> </td>
-               <td class="uk-text-center"> <span class="uk-text-muted" data-bind="text: realname"></span> </td>
+               <td class="uk-text-center"> <em class= "uk-text-large" data-bind="text: name, visible: !editing()"></em>
+                    <input type="text" data-bind="value: name, visible: editing">
+                 </td>
+               <td class="uk-text-center"> <span class="uk-text-muted" data-bind="text: realname, visible: !editing()">
+                </span>
+                <input type="text" data-bind="value: realname, visible: editing">
+                 </td>
                <td class="uk-text-center"> <span class="uk-text-warning uk-text-bold" data-bind="text: type"></span> </td>
-               <td class="uk-text-center"> <span class="uk-text-primary uk-text-bold" data-bind="text:  $parent.areas()[area]"></span> </td>
+               <td class="uk-text-center"> <span class="uk-text-primary uk-text-bold" data-bind="text:  $parent.areas()[area], visible: !editing()"></span>
+                <select data-bind="options: $parent.areas(), value: $parent.areas()[area], visible: editing, disable: is_admin()">
+                </select>
+ </td>
                <td class="uk-text-center">
-                    <button class="uk-button uk-button-primary" style="background-color:rgb(40,70,110);" data-bind="visible: !is_admin(), click: function(){ $parent.become_admin( $index() ) }"> <i class="uk-icon-user-secret"></i> Volverlo administrador</button>
-                    <button class="uk-button uk-button-primary"  data-bind="visible: is_admin, click: function(){ $parent.become_user( $index() ) }"> <i class="uk-icon-user"></i> Volverlo usuario</button>
-                    <button class="uk-button uk-button-danger" data-bind="click: function(){ $parent.delete_user($index()) }"> <i class="uk-icon-user-times"></i> Borrar Usuario</button>
+                    <button class="uk-button uk-button-primary" data-bind="click: function(){ editing(true) }, visible: !editing()"> <i class="uk-icon-edit"></i> Editar</button>
+                    <button class="uk-button uk-button-success" data-bind="visible:editing, click: function(){ editing(false) }"><i class="uk-icon-arrow-left"></i> Atrás </button>
+                    <button class="uk-button uk-button-primary" style="background-color:rgb(40,70,110);" data-bind="visible: editing(), click: function(){ $parent.save($index()) }"> <i class="uk-icon-save"></i> Guardar</button>
+                    <button class="uk-button uk-button-danger" data-bind="click: function(){ $parent.delete_user($index()) }, visible: !is_admin()"> <i class="uk-icon-user-times"></i> Borrar Usuario</button>
                 </td>
            </tr>
        </tbody>

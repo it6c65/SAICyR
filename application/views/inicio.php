@@ -44,8 +44,8 @@ Ordenar por:
             <br>
             <div class="uk-panel uk-panel-box uk-text-center">
                 <div class="uk-panel-badge uk-badge uk-badge-warning">Aviso</div>
-                <h3 class="uk-panel-title"> Aquí falta documentación</h3>
-                <p> Zona todavía en construccion</p>
+                <h3 class="uk-panel-title"> Licencia del Proyecto</h3>
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><?= img("public/img/big_license.png"); ?> </a>
             </div>
             <br>
             <br>

@@ -21,7 +21,7 @@ class Login extends CI_Controller{
             $usuario = $this->input->post("usuario");
             $clave = $this->input->post("clave");
             if($this->usuario->init_session($usuario,$clave)){
-                $this->db->select("username,tipo,id");
+                $this->db->select("username,tipo,id,area_id");
                 $this->db->from("usuarios");
                 $this->db->where("username", $usuario);
                 $this->db->limit(1);
@@ -30,7 +30,8 @@ class Login extends CI_Controller{
                     "logged" => true,
                     "name" => $usuario,
                     "segurity" => $permiso->tipo,
-                    "id" => $permiso->id
+                    "id" => $permiso->id,
+                    "area" => $permiso->area_id
                 );
                 $this->session->set_userdata($data_user);
                 $this->session->set_flashdata("init", "¡Ha iniciado sesión con éxito!");

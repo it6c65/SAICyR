@@ -48,9 +48,6 @@
                     <label class="uk-form-label uk-text-bold" for=""> Tipo: </label>
                     <div class="uk-form-controls">
                         <input type="radio" name="tipo" value="Encargado"> Encargado
-                        &nbsp;
-                        &nbsp;
-                        <input type="radio" name="tipo" value="Oficina"> Oficina
                     </div>
                 </div>
                 <div class="uk-form-row uk-text-center">
