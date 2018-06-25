@@ -47,7 +47,7 @@
                 <div class="uk-form-row">
                     <label class="uk-form-label uk-text-bold" for=""> Tipo: </label>
                     <div class="uk-form-controls">
-                        <input type="radio" name="tipo" value="Encargado"> Encargado
+                        <input type="radio" name="tipo" value="Encargado" checked> Encargado
                     </div>
                 </div>
                 <div class="uk-form-row uk-text-center">

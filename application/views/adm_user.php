@@ -30,8 +30,8 @@
                 <input type="text" data-bind="value: realname, visible: editing">
                  </td>
                <td class="uk-text-center"> <span class="uk-text-warning uk-text-bold" data-bind="text: type"></span> </td>
-               <td class="uk-text-center"> <span class="uk-text-primary uk-text-bold" data-bind="text:  $parent.areas()[area], visible: !editing()"></span>
-                <select data-bind="options: $parent.areas(), value: $parent.areas()[area], visible: editing, disable: is_admin()">
+               <td class="uk-text-center"> <span class="uk-text-primary uk-text-bold" data-bind="text:  $parent.zone()[area].nombre(), visible: !editing()"></span>
+                <select data-bind="options: $parent.zone(), value: area, optionsText: 'nombre', optionsValue: 'id', visible: editing, disable: is_admin()">
                 </select>
  </td>
                <td class="uk-text-center">
