@@ -10,7 +10,7 @@ class Salon extends CI_Controller {
     }
     public function index(){
         $this->load->database();
-        $data = array( "title" => "Salón Principal", "header" => "Salón Principal", "user" => $this->session->userdata("name"), "admin" => $this->session->userdata("segurity")   );
+        $data = array( "title" => "Salón Principal", "header" => "Salón Principal", "user" => $this->session->userdata("name"), "admin" => $this->session->userdata("segurity"), "area" => $this->session->userdata("zone"), "current" => 4  );
         $this->load->helper('html');
         $this->load->helper('url');
         $this->load->helper('form');

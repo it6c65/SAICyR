@@ -31,7 +31,7 @@ class Login extends CI_Controller{
                     "name" => $usuario,
                     "segurity" => $permiso->tipo,
                     "id" => $permiso->id,
-                    "area" => $permiso->area_id
+                    "zone" => $permiso->area_id
                 );
                 $this->session->set_userdata($data_user);
                 $this->session->set_flashdata("init", "¡Ha iniciado sesión con éxito!");

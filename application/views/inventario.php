@@ -10,12 +10,14 @@
         </div>
         <div class="uk-overflow-container">
             <h2 class="uk-text-center" ><i>Inventario</i></h2>
-            <div class="uk-container uk-grid">
+            <div class="uk-container uk-grid"> 
+               <?php if($area == $current || $area == 0): ?>
                <div class="uk-width-6-10">
                     <button class="uk-button uk-button-success" data-uk-toggle="{ target:'#add', animation:'uk-animation-slide-left, uk-animation-slide-right' }"> 
                         <i class="uk-icon-plus"></i> Agregar
                     </button>
                 </div>
+                <?php endif; ?>
                 <div class="uk-width-4-10">
                     Ordenar por:
                     <button class="uk-button" data-bind="click: orderbyCode"> <i class="uk-icon-arrows-v"></i> Codigo </button>
@@ -24,6 +26,7 @@
                 </div>            
             </div>      
 <br>
+<!-- Panel para agregar los datos-->
 <div class="uk-hidden uk-panel uk-panel-box uk-panel-box-success uk-text-center" id="add">
     <h3 class="uk-panel-title"><i class="uk-icon-plus"></i> Agregar Elemento <i class="uk-icon-plus"></i></h3>
     <div class="uk-container">
@@ -42,6 +45,7 @@
             </thead>
             <tbody>
                 <tr>
+                    <!-- Imagen de la galeria-->
                     <td class="uk-text-center">
                         <a href="#img_gallery" data-uk-modal data-bind="visible: !addImage(), click: addOption">
                             <i class="uk-icon-hover uk-icon-large uk-icon-camera"></i>
@@ -49,27 +53,34 @@
                         <i class="uk-icon-hover uk-icon-large uk-icon-check uk-text-success" data-bind="visible: addImage"></i>
                         <a class="uk-button" href="#img_gallery" data-uk-modal data-bind="visible: addImage, click: addOption"> Escoger Otra</a>
                     </td>
+                    <!-- nombre -->
                     <td class="uk-text-center">
                         <input type="text" placeholder="Nombre" id="add_name" name="nombre" data-bind="value: addName" data-uk-tooltip>
                     </td>
+                    <!-- codigo -->
                     <td class="uk-text-center">
                        <input id="add_code" type="text" placeholder="Codigo" name="codigo" data-bind="value: addCode">
                     </td>
+                    <!-- condicion -->
                     <td class="uk-text-center">
                         <select id="add_condition" name="condicion" data-bind="options: conditions, value: addCondition">
                         </select>
                     </td>
+                    <!-- categoria -->
                     <td class="uk-text-center">
                         <select id="add_category" name="categoria" data-bind="options: categories, value: addCategory">
                         </select>
                     </td>
+                    <!-- cantidad -->
                     <td class="uk-text-center">
                         <input type="number" placeholder="Cantidad" id="add_quantity" name="cantidad" data-bind="value: addQuantity" class="uk-form-width-mini">
                     </td>
+                    <!-- Escala -->
                     <td class="uk-text-center">
                         <select id="add_scale" name="escala" data-bind="options: scales_group, value: addScale" class="uk-form-width-mini">
                         </select>
                     </td>
+                    <!-- Enviar -->
                     <td class="uk-text-center">
                         <button class="uk-button uk-button-success" type="submit"><i class="uk-icon-send"></i> Enviar </button>
                     </td>
@@ -79,6 +90,7 @@
         </form>
     </div>
 </div>
+<!-- Panel Principal inventario-->
 <div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center" data-bind="visible: tools().length == 0">
     <div class="uk-panel-badge uk-badge"> Nota</div>
     <h2 class="uk-panel-title">¡No hay nada! </h2>
@@ -139,12 +151,19 @@
                         <select id="categoria" name="Categoria" data-bind="options: $parent.categories, value: current_category, visible: editing">
                         </select>
                         </td>
+                        <?php if($area == $current || $area == 0): ?>
+                        <!-- Botones de accion-->
                         <td class="uk-text-center"> 
                             <button class="uk-button uk-button-primary" style="background-color:rgb(40,70,110);" data-bind="visible: editing, click: function() { $parent.save($index()) }"><i class="uk-icon-save"></i> Guardar </button>
                             <button class="uk-button uk-button-primary" data-bind="click: function() { editing(true) }, visible: !editing()"><i class="uk-icon-edit"></i> Editar </button>
                             <button class="uk-button uk-button-danger"  data-bind="visible: !editing(), click: function() { $parent.delete($index()) }"><i class="uk-icon-trash"></i> Borrar </button>
                             <button class="uk-button uk-button-danger"  data-bind="click: function() { editing(false) }, visible: editing"><i class="uk-icon-ban"></i> Cancelar </button>
                         </td>
+                        <?php else: ?>
+                        <td class="uk-text-center">
+                            <div class="uk-text-bold uk-text-danger"><i class="uk-icon-ban"></i> No es tu area asignada</div>
+                        </td>
+                        <?php endif; ?>
                     </tr>
                 </tbody>
             </table>
@@ -175,7 +194,7 @@
                             <figcaption class="uk-overlay-panel uk-overlay-background uk-overlay-bottom uk-text-center">
                                 <div class="uk-button-group">
                                     <button class="uk-button uk-button-success uk-button-small" data-bind="click: function() { $parent.addImage($parent.gallery()[$index()].id) }, visible: $parent.addOption "> <i class="uk-icon-photo"></i> Añadir </button>
-                                    <button class="uk-button uk-button-primary uk-button-small" data-bind="click: function() { $parent.paginated()[$parent.changeImg()].img($parent.gallery()[$index()].url()) }, visible: !$parent.addOption()"> <i class="uk-icon-clone"></i> Cambiar </button>
+                                    <button class="uk-button uk-button-primary uk-button-small" data-bind="click: function() { $parent.paginated()[$parent.changeImg()].img($parent.gallery()[$index()].url()); UIkit.modal('#img_gallery').hide(); }, visible: !$parent.addOption()"> <i class="uk-icon-clone"></i> Cambiar </button>
                                     <button class="uk-button uk-button-danger uk-button-small" data-bind="click: function() { $parent.deleteImg($index()) }"> <i class="uk-icon-trash"></i> Borrar </button>
                                 </div>
                             </figcaption>

@@ -186,22 +186,27 @@ function crudViewModel(){
     });
 
     // paginacion
+    // -Variables
     self.pageNumber = ko.observable(0);
     self.perPage = 13;
+    // Total de paginas
     self.totalPages = ko.computed(function(){
         var total = Math.ceil(self.tools().length / self.perPage);
         return total - 1;
     });
+    //Ordenar por codigo
     self.orderbyCode = function(){
         return self.tools.sort( function(l,r){
             return l.code() == r.code() ? 0 : ( l.code() < r.code() ? -1 : 1 )
         });
     }
+    // Ordenar por condicion
     self.orderbyCondition = function(){
         return self.tools.sort( function(l,r){
             return l.current_condition() == r.current_condition() ? 0 : ( l.current_condition() < r.current_condition() ? -1 : 1 )
         });
     }
+    // Ordernar por categoria
     self.orderbyCategory = function(){
         return self.tools.sort( function(l,r){
             return l.current_category() == r.current_category() ? 0 : ( l.current_category() < r.current_category() ? -1 : 1 )
@@ -221,22 +226,27 @@ function crudViewModel(){
         return self.tools.slice(primero, primero+ self.perPage);
     });
 
+    // Adivina si tiene atras de la paginacion
     this.hasPrevious = ko.computed(function(){
         return self.pageNumber() !== 0;
     });
+    // Adivina si tiene siguiente de la paginacion
     this.hasNext = ko.computed(function(){
         return self.pageNumber() !== self.totalPages();
     });
+    // Atras de la paginacion
     this.next = function(){
         if(self.pageNumber() < self.totalPages()){
             self.pageNumber( self.pageNumber() + 1 );
         }
     }
+    // siguiente de la paginacion
     this.previous = function(){
         if(self.pageNumber() != 0){
             self.pageNumber( self.pageNumber() - 1 );
         }
     }
+    // guardar los datos el objeto en la base de datos
     self.save = function(index){
         $.post(getBaseUrl()+getController()+"editar", {data: ko.toJSON({ tool: self.paginated()[index] }) 
         });
@@ -283,6 +293,8 @@ $(function(){
         setTimeout(function(){
             progressbar.addClass("uk-hidden");
         }, 250);
+
+        UIkit.modal("#img_gallery").hide();
 
         UIkit.notify(" <i class='uk-icon-check'></i> La imagen se ha subido con éxito", 'success');
     }

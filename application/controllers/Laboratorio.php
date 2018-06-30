@@ -10,7 +10,7 @@ class Laboratorio extends CI_Controller {
     }
     public function index(){
         $this->load->database();
-        $data = array( "title" => "Laboratorio", "header" => "Laboratorio de Restauración", "user" => $this->session->userdata("name"), "admin" => $this->session->userdata("segurity")  );
+        $data = array( "title" => "Laboratorio", "header" => "Laboratorio de Restauración", "user" => $this->session->userdata("name"), "admin" => $this->session->userdata("segurity"), "area" => $this->session->userdata("zone"), "current" => 2  );
         $this->load->helper('html');
         $this->load->helper('url');
         $this->load->helper('form');
