@@ -24,17 +24,19 @@
 <br>
                 <div class="uk-button-group">
 Ordenar por:
-                    <button class="uk-button uk-button-primary sort" data-sort="id"> <i class="uk-icon-arrows-v"></i> Numero</button>
-                    <button class="uk-button uk-button-primary sort" data-sort="usuario"> <i class="uk-icon-arrows-v"></i> Usuario</button>
-                    <button class="uk-button uk-button-primary sort" data-sort="accion"> <i class="uk-icon-arrows-v"></i> Acción</button>
-                    <button class="uk-button uk-button-primary sort" data-sort="hora"> <i class="uk-icon-arrows-v"></i> Hora</button>
-                    <button class="uk-button uk-button-primary sort" data-sort="fecha"> <i class="uk-icon-arrows-v"></i> Fecha</button>
-                    <button class="uk-button uk-button-primary sort" data-sort="area"> <i class="uk-icon-arrows-v"></i> Área</button>
+                    <button class="uk-button uk-button-primary uk-button-small sort" data-sort="id"> <i class="uk-icon-arrows-v"></i> Numero</button>
+                    <button class="uk-button uk-button-primary uk-button-small sort" data-sort="usuario"> <i class="uk-icon-arrows-v"></i> Usuario</button>
+                    <button class="uk-button uk-button-primary uk-button-small sort" data-sort="accion"> <i class="uk-icon-arrows-v"></i> Acción</button>
+                    <button class="uk-button uk-button-primary uk-button-small sort" data-sort="hora"> <i class="uk-icon-arrows-v"></i> Hora</button>
+                    <button class="uk-button uk-button-primary uk-button-small sort" data-sort="fecha"> <i class="uk-icon-arrows-v"></i> Fecha</button>
+                    <button class="uk-button uk-button-primary uk-button-small sort" data-sort="area"> <i class="uk-icon-arrows-v"></i> Área</button>
                 </div>
                 </div>
 <br>
                 <button id="borrar_registro" class="uk-button uk-button-danger uk-width-1-1"> <i class="uk-icon-fire"></i> Eliminar registro</button>
+            <div class="uk-overflow-container">
                 <?= $this->table->generate() ?>
+            </div>
 
             </li>
           </div>

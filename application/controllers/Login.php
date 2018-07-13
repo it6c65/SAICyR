@@ -144,7 +144,7 @@ class Login extends CI_Controller{
 
     public function salir(){
         $this->load->helper("url");
-        $this->session->set_flashdata("exit", "¡Ha salido con éxito!");
+        $this->session->set_flashdata("exit", "<i class='uk-icon-check'></i> ¡Ha salido con éxito!");
         $this->registro_admin("Salir", "Login");
         redirect("/");
     }

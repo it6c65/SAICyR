@@ -23,7 +23,7 @@ $mains = array(
     <a href="#mobile" class="uk-navbar-toggle uk-visible-medium" data-uk-offcanvas></a>
     <!-- Logo centrado para pantalla pequeña -->
     <div class="uk-navbar-content uk-visible-small">
-        <?= img("public/img/logon.png", FALSE, array("class" => "uk-margin-large-left")); ?>
+        <?= img("public/img/logon.png", FALSE, array("class" => "uk-margin-large-left","width" => "100", "height" => "60")); ?>
     </div>
     <!-- Logo centrado para pantalla mediana con botones centrados -->
     <div class="uk-navbar-center uk-navbar-content uk-visible-medium">
@@ -76,12 +76,12 @@ $mains = array(
                     <div class="uk-dropdown uk-dropdown-navbar">
                         <ul class="uk-nav uk-nav-navbar">
                         <li><a href="<?= base_url("/usuario_actual") ?>"> <i class="uk-icon-cog"></i> Configurar Usuario </a></li>
-                            <li><a href="<?= base_url("/login/salir") ?>"> <i class="uk-icon-power-off"></i> Cerrar Sesión </a></li>
+                            <li><a href="#" onclick="exit_out()"> <i class="uk-icon-power-off"></i> Cerrar Sesión </a></li>
                         </ul>
                     </div>
                 </li>
             </ul>
-            <a href="<?= base_url("/login/salir") ?>" class="uk-button uk-button-danger uk-hidden-small"> <i class="uk-icon-power-off"></i> Cerrar sesión</a>
+            <a href="#" onclick="exit_out()" class="uk-button uk-button-danger uk-hidden-small"> <i class="uk-icon-power-off"></i> Cerrar sesión</a>
         </div>
 </nav>
 
@@ -114,4 +114,13 @@ $mains = array(
         </ul>
     </div>
 </div>
-
+<!-- Salir de el sistema -->
+<script type="text/Javascript">
+    function exit_out(){
+        UIkit.modal.confirm("¿Estas seguro de que deseas salir?", function(){
+        var local = window.location;
+        var base_url = local.protocol + "//" + local.host + "/";
+        window.location.replace(base_url+"login/salir");
+    });
+};
+</script>

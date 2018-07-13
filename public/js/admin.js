@@ -62,12 +62,14 @@ function userViewModel(){
             $.post(getBaseUrl()+"admuser/"+"borrar", {data: ko.toJSON({ user: self.users()[index] }) 
             });
             self.users.remove( self.users()[index] );
+            UIkit.notify(" <i class='uk-icon-check'></i> Borrado con éxito", "success");
         });
     }
     self.save = function(index){
         $.post(getBaseUrl()+"admuser/"+"editar", {data: ko.toJSON({ user: self.users()[index] }) 
         });
         self.getUsers();
+        UIkit.notify(" <i class='uk-icon-check'></i> Guardado con éxito", "success");
     }
 
 }

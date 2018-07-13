@@ -29,7 +29,7 @@
 <!-- Panel para agregar los datos-->
 <div class="uk-hidden uk-panel uk-panel-box uk-panel-box-success uk-text-center" id="add">
     <h3 class="uk-panel-title"><i class="uk-icon-plus"></i> Agregar Elemento <i class="uk-icon-plus"></i></h3>
-    <div class="uk-container">
+    <div class="uk-container uk-overflow-container">
         <form class="uk-form" data-bind="submit: SubmitAdd">
         <table class="uk-table">
             <thead>
@@ -154,7 +154,7 @@
                         <?php if($area == $current || $area == 0): ?>
                         <!-- Botones de accion-->
                         <td class="uk-text-center"> 
-                            <button class="uk-button uk-button-primary" style="background-color:rgb(40,70,110);" data-bind="visible: editing, click: function() { $parent.save($index()) }"><i class="uk-icon-save"></i> Guardar </button>
+                            <button class="uk-button uk-button-primary" style="background-color:rgb(40,70,110);" data-bind="visible: editing, click: function() { $parent.save($index()); editing(false); }"><i class="uk-icon-save"></i> Guardar </button>
                             <button class="uk-button uk-button-primary" data-bind="click: function() { editing(true) }, visible: !editing()"><i class="uk-icon-edit"></i> Editar </button>
                             <button class="uk-button uk-button-danger"  data-bind="visible: !editing(), click: function() { $parent.delete($index()) }"><i class="uk-icon-trash"></i> Borrar </button>
                             <button class="uk-button uk-button-danger"  data-bind="click: function() { editing(false) }, visible: editing"><i class="uk-icon-ban"></i> Cancelar </button>

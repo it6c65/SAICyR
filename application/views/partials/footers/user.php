@@ -9,5 +9,6 @@
 <script src="<?= base_url("public/js/admin.js"); ?>"></script>
 <script src="<?= base_url("public/js/components/notify.min.js"); ?>"></script>
 <script src="<?= base_url("public/js/components/tooltip.min.js"); ?>"></script>
+<script src="<?= base_url("public/js/components/notify.min.js"); ?>"></script>
 </body>
 </html>

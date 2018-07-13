@@ -6,6 +6,7 @@
         </div>
 <br>
 <br>
+        <div class="uk-overflow-container">
        <table class="uk-table uk-table-hover">
            <thead data-bind="visible: !users().length == 0">
                <tr>
@@ -43,5 +44,6 @@
            </tr>
        </tbody>
    </table>
+        </div>
     </div>
 </div>
