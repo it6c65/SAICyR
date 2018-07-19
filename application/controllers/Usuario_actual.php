@@ -7,6 +7,16 @@ class Usuario_Actual extends CI_Controller {
         $this->usuario->logged();
     }
     public function index(){
+        $titulo = array( "title" => "Inicio", "user" => $this->session->userdata("name"), "admin" => $this->session->userdata("segurity"),"question" => $this->session->userdata("question"), "area" => $this->session->userdata("zone"), "realname" => $this->session->userdata("realname") );
+        $this->load->helper('html');
+        $this->load->helper('url');
+        $this->load->view('partials/header', $titulo );
+        $this->load->view('partials/navbar', $titulo );
+        $this->load->view('profile');
+        $this->load->view('partials/footers/config_user');
+    }
+
+    public function change_question(){
         $titulo = array( "title" => "Inicio", "user" => $this->session->userdata("name"), "admin" => $this->session->userdata("segurity") );
         $this->load->helper('html');
         $this->load->helper('url');
@@ -15,8 +25,7 @@ class Usuario_Actual extends CI_Controller {
         $this->form_validation->set_rules("answer_secret", "Respuesta Secreta", "required|max_length[140]|trim");
         if ($this->form_validation->run() == FALSE){
             $this->load->view('partials/header', $titulo );
-            $this->load->view('partials/navbar', $titulo );
-            $this->load->view('profile');
+            $this->load->view('change_question');
             $this->load->view('partials/footers/config_user');
         }else{
             $this->load->model("usuario");

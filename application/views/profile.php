@@ -4,29 +4,27 @@
        <div class="uk-text-center">
        <h1> Usuario Actual: <?= $user ?> </h1>
         </div>
-        <?= form_open("/usuario_actual", array("class" => "uk-form uk-form-stacked uk-text-center")) ?>
-        <form class="uk-form uk-form-stacked uk-text-center" action="">
-            <fieldset>
-                <legend>Cambiar pregunta secreta</legend>
-            </fieldset>
-                    <?= validation_errors('<div class="uk-alert uk-alert-danger" data-uk-alert> 
-                    <a class="uk-alert-close uk-close"></a>', "</div>"); ?>
-            <div class="uk-form-row">
-                <label class="uk-form-label uk-text-bold" for=""> Pregunta Secreta: </label>
-                <div class="uk-form-controls">
-                ¿<input type="text" id="question" name="question_secret" class="uk-form-width-large" placeholder="Pregunta Secreta" data-uk-tooltip="{pos: 'right'}" title="Escribe la pregunta secreta. Máximo 140 carácteres" value="<?= set_value('question_secret'); ?>">?
-                </div>
-            </div>
-            <div class="uk-form-row">
-                <label class="uk-form-label uk-text-bold" for=""> Respuesta Secreta: </label>
-                <div class="uk-form-controls">
-                    <div class="uk-form-password">
-                        <input type="password" id="answer" name="answer_secret" class="uk-form-width-large" placeholder="Respuesta Secreta" data-uk-tooltip="{pos: 'right'}" title="Dale clic a mostrar para visualizar la respuesta antes de enviar.  Máximo 140 carácteres">
-                        <a class="uk-form-password-toggle" href="" data-uk-form-password="{lblShow:'Mostrar',lblHide:'Ocultar'}">Mostrar</a>
-                    </div>
-                </div>
-            </div>
-        <div class="uk-form-row"><button class="uk-button uk-button-primary" style="background-color: rgb(40,70,110)" type="submit"> <i class="uk-icon-save"></i> Guardar</button></div>
-    </form>
+        <div class="uk-container uk-text-left">
+        <h2> Nombre Real del usuario: <?= $realname ?> </h2>
+        <?php if($area == 0): ?>
+            <h2>Area asignada: <em>Todas</em> </h2>
+        <?php elseif($area == 1): ?>
+            <h2>Area asignada: <em>Taller</em> </h2>
+        <?php elseif($area == 2): ?>
+            <h2>Area asignada: <em>Laboratorio</em> </h2>
+        <?php elseif($area == 3): ?>
+            <h2>Area asignada: <em>Oficina</em> </h2>
+        <?php elseif($area == 4): ?>
+            <h2>Area asignada: <em>Salón Principal</em> </h2>
+        <?php elseif($area == 5): ?>
+            <h2>Area asignada: <em>Sala de Arte</em> </h2>
+        <?php elseif($area == 6): ?>
+            <h2>Area asignada: <em>Taller de Escultura</em> </h2>
+        <?php elseif($area == 7): ?>
+            <h2>Area asignada: <em>Depósito</em> </h2>
+        <?php endif; ?>
+    <h2>Clave: <?= anchor("/login/cambiar_clave", " <i class='uk-icon-retweet'></i> Cambiar Contraseña", array("class" => 'uk-button uk-button-success')); ?> </h2> 
+            <h2> Pregunta Secreta: <?= $question ?></h2><?= anchor("/usuario_actual/change_question", " <i class='uk-icon-comment'></i> Cambiar Pregunta Secreta", array("class" => 'uk-button uk-button-primary')); ?>         </div>
+       <br> 
 </div>
 </div>

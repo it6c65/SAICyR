@@ -28,8 +28,6 @@ class Usuario extends CI_Model{
             redirect("/");
         }
     }
-    public function logged_as_admin(){
-    }
     public function change_password($id,$new_pass){
         $change = array(
             "password" => md5($new_pass)

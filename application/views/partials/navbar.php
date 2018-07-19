@@ -9,8 +9,8 @@ $dropdown = array(
 );
 $mains = array(
     array("url" => base_url("inicio"), "name" => '<i class="uk-icon-small uk-icon-home"></i> Inicio', "lugar" => "Inicio"),
-    array("url" => base_url("laboratorio"), "name" => '<i class="uk-icon-small uk-icon-flask"></i> Laboratorio de CyR', "lugar" => "Laboratorio"),
-    array("url" => base_url("taller"), "name" => '<i class="uk-icon-small uk-icon-puzzle-piece"> </i> Taller de CyR', "lugar" => "Taller")
+    array("url" => base_url("laboratorio"), "name" => '<i class="uk-icon-small uk-icon-flask"></i> Laboratorio', "lugar" => "Laboratorio"),
+    array("url" => base_url("taller"), "name" => '<i class="uk-icon-small uk-icon-puzzle-piece"> </i> Taller', "lugar" => "Taller")
 );
 ?>
 <div class="uk-container uk-container-center">
