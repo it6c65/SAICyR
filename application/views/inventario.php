@@ -73,7 +73,7 @@
                     </td>
                     <!-- cantidad -->
                     <td class="uk-text-center">
-                        <input type="number" placeholder="Cantidad" id="add_quantity" name="cantidad" data-bind="value: addQuantity" class="uk-form-width-mini">
+                        <input type="number" min="1" placeholder="Cantidad" id="add_quantity" name="cantidad" data-bind="value: addQuantity" class="uk-form-width-mini">
                     </td>
                     <!-- Escala -->
                     <td class="uk-text-center">
@@ -131,7 +131,7 @@
                             <p data-bind="text: quantity, visible: !editing()"></p>
                             <div id="editando_cantidades" data-bind="visible: editing">
                                 <button class="uk-button uk-button-success uk-button-mini" data-bind="click: function(){ $parent.sumQuan($index()) }"><span class="uk-icon-plus"></span></button>
-                                <input id="cantidad" type="number" data-bind="value:quantity" class="uk-form-width-mini">
+                                <input id="cantidad" type="text" data-bind="value:quantity" class="uk-form-width-mini">
                                 <button class="uk-button uk-button-danger uk-button-mini" data-bind="click: function(){ $parent.subQuan($index()) }" ><span class="uk-icon-minus"></span></button>
                             </div>
                         </td>

@@ -83,7 +83,12 @@ function crudViewModel(){
     };
     //Restar a la cantidad en el editar  
     self.subQuan = function(index){
-        self.paginated()[index].quantity(Number(self.paginated()[index].quantity()) - 1);
+         // si la cantidad es diferente de uno se resta
+        if( self.paginated()[index].quantity() == 1 ){
+            return false;
+        }else{
+            self.paginated()[index].quantity(Number(self.paginated()[index].quantity()) - 1);
+        }
     };
 
     self.getImages = function(){
@@ -137,12 +142,18 @@ function crudViewModel(){
 
     // agrega las herramientas a la base de datos con AJAX
     self.SubmitAdd = function(){
-        // chequea los primeros datos nombre y codigo
+        // chequea los primeros datos nombre y cantidad
         var check_name = /([a-z]|[A-Z]| ){2,30}/;
-        var check_code = /([0-9]|-){1,999999999999999}/;
+        var check_number = /([0-9]){1,999999999999999}/;
         if(self.addName() === ""){
             $("#add_name").addClass("uk-form-danger");
             $("#add_name").attr("title","¡No olvides ponerle nombre!");
+            return false;
+        }else if( !check_name.test(self.addName()) ){
+            UIkit.notify(" <i class='uk-icon-warning'></i> Solo se pueden agregar caracteres en el nombre", "warning");
+            return false;
+        }else if( !check_number.test(self.addQuantity()) ){
+            UIkit.notify(" <i class='uk-icon-warning'></i> Solo se pueden agregar numeros en la cantidad", "warning");
             return false;
         }
         //encapsula los datos de la herramienta en un objeto
@@ -248,6 +259,17 @@ function crudViewModel(){
     }
     // guardar los datos el objeto en la base de datos
     self.save = function(index){
+        // chequea los primeros datos nombre y cantidad
+        var check_name = /([a-z]|[A-Z]| ){2,30}/;
+        var check_number = /([0-9]){1,999999999999999}/;
+        // comprobar datos antes de enviar
+        if( !check_name.test(self.paginated()[index].name()) ){
+            UIkit.notify(" <i class='uk-icon-warning'></i> Solo se pueden agregar caracteres en el nombre por lo tanto los datos no fueron guardados", "warning");
+            return false;
+        }else if( !check_number.test( self.paginated()[index].quantity() ) ){
+            UIkit.notify(" <i class='uk-icon-warning'></i> Solo se pueden agregar numeros en la cantidad por lo tanto los datos no fueron guardados", "warning");
+            return false;
+        }
         $.post(getBaseUrl()+getController()+"editar", {data: ko.toJSON({ tool: self.paginated()[index] }) 
         });
         UIkit.notify("<i class='uk-icon-check'></i> Guardado con éxito", "success");
