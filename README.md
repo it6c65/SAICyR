@@ -20,10 +20,6 @@ El inventario general de la Universidad Nacional Experimental Francisco de Miran
 * Instalación
 * Manual de Usuario
 
-Comunidad Universitaria
-===
-* http://www.kumbiaphp.com  Web oficial  (pronto en KumbiaPHP http://proto.kumbiaphp.com, bienvenida ayuda con el diseño)
-
 Licencia
 ===
 Creative Commons BY-NC-SA
